@@ -64,6 +64,7 @@ function handleSubmit() {
     }
 
     if (allTrackNames.includes(songInput)) {
+        document.getElementById('songInput').value = '';
         addGuess(songInput);
         guesses.push(songInput);
         updateGuessCounterDisplay(); // Update guess counter display

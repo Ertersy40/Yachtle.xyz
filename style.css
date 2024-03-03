@@ -59,6 +59,7 @@ input[type="search"] {
 
 /* Suggestion box styling */
 #suggestions {
+    display: none;
     z-index: 10;
     max-height: 200px;
     overflow-y: auto;

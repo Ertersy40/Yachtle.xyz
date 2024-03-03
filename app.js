@@ -1,7 +1,5 @@
-//TODO: Add stats in
 //TODO: Stop repeats within the last 20 days or something if I can be bothered
 
-//FIXME: weird white dot from suggestions
 if (!localStorage.getItem('helpShown')){
     localStorage.setItem('helpShown', true);
     showHelpModal()
@@ -152,7 +150,6 @@ function gameWon() {
     // Optionally, you can add a message or visual cue to the user that they have won
     // For example, adding a "Game Won" message above the table or changing the background color of the last row
     // This is a simple way to highlight the correct guess
-    lastTableRow.style.backgroundColor = '#90ee90'; // Light green, for example
     showWinModal()
 }
 
@@ -331,6 +328,7 @@ function displaySuggestions(trackNames) {
     suggestionsBox.innerHTML = ''; // Clear previous suggestions
     
     if (trackNames.length > 0) {
+        document.getElementById('suggestions').style.display = 'block';
         const suggestionsHTML = trackNames.map(name => `<div class="suggestion-item">${name}</div>`).join('');
         suggestionsBox.innerHTML = suggestionsHTML;
         
@@ -341,6 +339,9 @@ function displaySuggestions(trackNames) {
                 suggestionsBox.innerHTML = ''; // Clear suggestions
             });
         });
+    } else{
+        console.log('hide the thing?')
+        document.getElementById('suggestions').style.display = 'none';
     }
 }
 

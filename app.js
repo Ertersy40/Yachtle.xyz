@@ -103,15 +103,6 @@ function handleSubmit() {
         updateGuessCounterDisplay(); // Update guess counter display
         localStorage.setItem('guesses', JSON.stringify(guesses));
 
-        const comparisonResult = compareToTarget(getTrackInfo(songInput));
-        if (comparisonResult.albumMatch === "correct" && comparisonResult.trackNumberMatch === "correct" && comparisonResult.trackLengthMatch === "correct") {
-            console.log("Congratulations! You've guessed the correct song!");
-            gameWon();
-        } else if (guesses.length >= MAX_GUESSES) {
-            console.log('No more guesses left. Game over!');
-            disableGameInput();
-            showLoseModal(); // Show lose modal if no more guesses are left
-        }
     } else if (guesses.includes(songInput)) {
         console.log("You have already guessed this song.");
     } else {
@@ -135,10 +126,12 @@ function gameWon() {
     console.log("GAME WONNNN!")
     gameWonCheck = true;
     
-    const today = new Date().toISOString().slice(0, 10)
+    const today = new Date();
+    const formattedToday = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0'); // Format YYYY-MM-DD
+    
     const lastGame = localStorage.getItem('lastGame')
-    if (!(lastGame && lastGame === today.toString())){
-        localStorage.setItem('lastGame', today)
+    if (!(lastGame && lastGame === formattedToday.toString())){
+        localStorage.setItem('lastGame', formattedToday)
         localStorage.setItem('streak', parseInt(localStorage.getItem('streak') || 0) + 1);
         localStorage.setItem('correct', parseInt(localStorage.getItem('correct') || 0) + 1);
         localStorage.setItem('gamesPlayed', parseInt(localStorage.getItem('gamesPlayed') || 0) + 1);
@@ -164,10 +157,11 @@ function gameWon() {
 }
 
 function gameLost() {
-    const today = new Date().toISOString().slice(0, 10)
+    const today = new Date();
+    const formattedToday = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0'); // Format YYYY-MM-DD
     const lastGame = localStorage.getItem('lastGame')
-    if (!(lastGame && lastGame === today.toString())){
-        localStorage.setItem('lastGame', today)
+    if (!(lastGame && lastGame === formattedToday.toString())){
+        localStorage.setItem('lastGame', formattedToday)
         localStorage.setItem('streak', 0);
         localStorage.setItem('gamesPlayed', parseInt(localStorage.getItem('gamesPlayed') || 0) + 1);
     }
@@ -242,6 +236,10 @@ function addGuess(guess) {
 
     if (JSON.stringify(trackInfo) === JSON.stringify(targetInfo)) {
         gameWon()
+    } else if (guesses.length >= MAX_GUESSES) {
+        console.log('No more guesses left. Game over!');
+        disableGameInput();
+        showLoseModal(); // Show lose modal if no more guesses are left
     }
 }
 
@@ -251,6 +249,7 @@ document.addEventListener('DOMContentLoaded', function() {
         allTrackNames = trackNames;
         pickRandomSong();
         checkAndUpdateDate(); // Call this function to check the date and load or reset guesses
+        updateGuessCounterDisplay();
     });
 
     // Add event listener to the submit button
@@ -260,14 +259,16 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function checkAndUpdateDate() {
-    const today = new Date().toISOString().slice(0, 10); // Format YYYY-MM-DD
+    const today = new Date();
+    const formattedToday = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0'); // Format YYYY-MM-DD
+
     const lastVisit = localStorage.getItem('lastVisit');
 
-    if (today === lastVisit) {
+    if (formattedToday === lastVisit) {
         loadGuesses(); // Load guesses from localStorage if it's the same day
     } else {
         localStorage.setItem('guesses', JSON.stringify([])); // Reset guesses
-        localStorage.setItem('lastVisit', today); // Update the last visit date
+        localStorage.setItem('lastVisit', formattedToday); // Update the last visit date
     }
 }
 

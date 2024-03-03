@@ -31,7 +31,7 @@ function pickRandomSong() {
 }
 
 function updateGuessCounterDisplay() {
-    document.getElementById('guessCounter').textContent = `Guesses: ${guesses.length}`;
+    document.getElementById('guessCounter').textContent = `Guesses: ${guesses.length}/8`;
 }
 
 

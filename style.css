@@ -43,7 +43,8 @@ h1 {
 }
 
 /* Input field styling */
-input[type="search"] {
+input[type="search"], textarea{
+    font-size: 16px;
     background-color: var(--input-background);
     color: var(--text-color);
     width: 100%;

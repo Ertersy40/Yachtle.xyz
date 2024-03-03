@@ -1,0 +1,225 @@
+[
+    {
+        "album_name" : "After Da Boat",
+        "img_url" : "https://i.scdn.co/image/ab67616d00001e02d16854351ef49161ee5c661f",
+        "tracks": [
+            {
+                "track_name" : "Bitter Sweet",
+                "track_length" : "1:46",
+                "features" : []
+            },
+            {
+                "track_name" : "Hollywood",
+                "track_length" : "2:52",
+                "features" : ["SwagHollywood"]
+            },
+            {
+                "track_name" : "They Lookin",
+                "track_length" : "1:55",
+                "features" : []
+            },
+            {
+                "track_name" : "Fresh Off A Boat",
+                "track_length" : "2:05",
+                "features" : ["Rich The Kid"]
+            },
+            {
+                "track_name" : "Beautiful Day",
+                "track_length" : "4:06",
+                "features" : ["Kylie Jenner"]
+            },
+            {
+                "track_name" : "Season",
+                "track_length" : "2:14",
+                "features" : ["Nessly"]
+            },
+            {
+                "track_name" : "Free K$upreme Freestyle",
+                "track_length" : "1:12",
+                "features" : []
+            },
+            {
+                "track_name" : "Rari",
+                "track_length" : "3:49",
+                "features" : ["Dj Carnage", "Ugly God", "Famous Dex"]
+            },
+            {
+                "track_name" : "Put Em Out",
+                "track_length" : "2:59",
+                "features" : []
+            },
+            {
+                "track_name" : "Run It",
+                "track_length" : "2:39",
+                "features" : ["Playboi Carti"]
+            },
+            {
+                "track_name" : "B*tches",
+                "track_length" : "2:33",
+                "features" : []
+            },
+            {
+                "track_name" : "4Real",
+                "track_length" : "3:00",
+                "features" : ["Famous Dex"]
+            },
+            {
+                "track_name" : "Water On My Face",
+                "track_length" : "3:37",
+                "features" : []
+            },
+            {
+                "track_name" : "No Hook",
+                "track_length" : "3:19",
+                "features" : ["Quavo"]
+            }
+        ]
+    },
+    {
+        "album_name" : "Lil Boat",
+        "img_url" : "https://i.scdn.co/image/ab67616d00001e0214d1a203158bed18a4ea7375",
+        "tracks": [
+            {
+                "track_name" : "Intro",
+                "track_length" : "4:02",
+                "features" : []
+            },
+            {
+                "track_name" : "Wanna Be Us",
+                "track_length" : "2:51",
+                "features" : ["The Good Perry"]
+            },
+            {
+                "track_name" : "Minnesota",
+                "track_length" : "4:28",
+                "features" : ["Quavo", "Skippa Da Flippa", "Young Thug"]
+            },
+            {
+                "track_name" : "Not My Bro",
+                "track_length" : "2:23",
+                "features" : []
+            },
+            {
+                "track_name" : "Interlude",
+                "track_length" : "1:18",
+                "features" : []
+            },
+            {
+                "track_name" : "Good Day",
+                "track_length" : "3:18",
+                "features" : ["Skippa Da Flippa"]
+            },
+            {
+                "track_name" : "Up Next 2",
+                "track_length" : "2:58",
+                "features" : ["Big Brutha Chubba", "Byou"]
+            },
+            {
+                "track_name" : "Never Switch Up",
+                "track_length" : "2:41",
+                "features" : []
+            },
+            {
+                "track_name" : "One Night",
+                "track_length" : "4:03",
+                "features" : []
+            },
+            {
+                "track_name" : "Out Late",
+                "track_length" : "2:40",
+                "features" : []
+            },
+            {
+                "track_name" : "Fucked Over",
+                "track_length" : "2:55",
+                "features" : []
+            },
+            {
+                "track_name" : "I'm Sorry",
+                "track_length" : "3:12",
+                "features" : ["The Good Perry"]
+            },
+            {
+                "track_name" : "We Did It",
+                "track_length" : "3:26",
+                "features" : []
+            }
+        ]
+    },
+    {
+        "album_name" : "Summer Songs 2",
+        "img_url" : "https://i.scdn.co/image/ab67616d00001e02c63359e56990c0c55d2d7ff0",
+        "tracks": [
+            {
+                "track_name" : "Intro (First Day Of Summer)",
+                "track_length" : "4:55",
+                "features" : []
+            },
+            {
+                "track_name" : "For Hot 97",
+                "track_length" : "2:51",
+                "features" : ["Jban$2Turnt", "Byou", "Big Brutha Chubba"]
+            },
+            {
+                "track_name" : "IDK",
+                "track_length" : "4:28",
+                "features" : []
+            },
+            {
+                "track_name" : "King Of Teens",
+                "track_length" : "2:23",
+                "features" : []
+            },
+            {
+                "track_name" : "Shoot Out The Roof",
+                "track_length" : "1:18",
+                "features" : []
+            },
+            {
+                "track_name" : "Why? - Interlude",
+                "track_length" : "3:18",
+                "features" : []
+            },
+            {
+                "track_name" : "Up Next 3",
+                "track_length" : "2:58",
+                "features" : ["G Herbo"]
+            },
+            {
+                "track_name" : "DipSet",
+                "track_length" : "2:41",
+                "features" : ["Offset"]
+            },
+            {
+                "track_name" : "Life Goes On",
+                "track_length" : "4:03",
+                "features" : ["Cook Laflare"]
+            },
+            {
+                "track_name" : "Yeah Yeah",
+                "track_length" : "2:40",
+                "features" : []
+            },
+            {
+                "track_name" : "Pretty",
+                "track_length" : "2:55",
+                "features" : ["The Good Perry"]
+            },
+            {
+                "track_name" : "Such Ease",
+                "track_length" : "3:12",
+                "features" : ["The Good Perry", "Tyler Royale"]
+            },
+            {
+                "track_name" : "All In",
+                "track_length" : "3:26",
+                "features" : ["The Good Perry", "Byou", "Kay the Yacht", "Big Brutha Chubba", "$oop", "Jban$2Turnt", "Kodie Shane", "K$upreme"]
+            },
+            {
+                "track_name" : "So Many People",
+                "track_length" : "3:26",
+                "features" : []
+            }
+        ]
+    }
+]

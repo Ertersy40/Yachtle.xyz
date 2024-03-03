@@ -1,0 +1,186 @@
+:root {
+    --background-color: rgb(40, 40, 40);
+    --text-color: white;
+    --text-color2: black;
+    --placeholder-text: rgb(194, 194, 194);
+
+    --button-color: rgb(156, 156, 156);
+    --button-hover: rgb(129, 129, 129);
+
+    --input-background: rgb(65, 65, 65);
+
+    --suggestion-color: #f2f2f2;
+    --suggestion-hover: #f2f2f2;
+    
+    --modal-color: black;
+    --outline-color: #888;
+
+    --correct: #6ca965;
+    --close: #c8b653;
+}
+
+
+/* General body styling */
+body {
+    padding-inline: 5%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    background-color: var(--background-color);
+}
+.contentContainer{
+    max-width: 800px;
+}
+
+/* Styling for the main heading */
+h1 {
+    color: var(--text-color);
+    text-align: center;
+}
+
+/* Input field styling */
+input[type="search"] {
+    background-color: var(--input-background);
+    color: var(--text-color);
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid var(--outline-color);
+    border-radius: 5px;
+}
+
+::placeholder {
+    color: var(--placeholder-text);
+}
+
+/* Suggestion box styling */
+#suggestions {
+    z-index: 10;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background-color: var(--suggestion-hover);
+}
+
+/* Button styling */
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: var(--button-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--button-hover);
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    /* background-color: black; */
+}
+
+th, td {
+    color: var(--text-color);
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid var(--outline-color);
+}
+
+
+/* Correct guess styling */
+#correctGuess {
+    background-color: var(--correct);
+    color: var(--text-color2);
+}
+
+.album_cell {
+    display: flex; /* Use flexbox to layout child elements */
+    align-items: center; /* Align items vertically in the center */
+    justify-content: start; /* Align items to the start of the cell */
+    min-width: 70px; /* Keep your min-width */
+}
+
+
+/* Correctness indicators */
+.correct {
+    font-weight: bold;
+    background-color: var(--correct);
+    color: var(--text-color2);
+}
+
+.before-close, .after-close, .close{
+    background-color: var(--close);
+    color: var(--text-color2);
+}
+
+
+.modal {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: var(--modal-color);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    color: var(--text-color);
+    background-color: var(--modal-color);
+    padding: 20px;
+    border: 1px solid var(--outline-color);
+    width: 80%;
+    max-width: 422px;
+}
+
+.modal-content p{
+    padding-left: 28px;
+    width: 80%;
+    text-align: center;
+}
+
+.closeModal {
+    color: var(--text-color);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.closeModal:hover,
+.closeModal:focus {
+    color: var(--text-color);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+@media (max-width: 510px) {
+    td, th {
+        font-size: 10px;
+    }
+}

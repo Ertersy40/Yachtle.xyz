@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Yachtle</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="contentContainer">
+
+            <h1>Yachtle</h1>
+            <input type="search" id="songInput" placeholder="Enter a Song" autocomplete="off" />
+            <div id="suggestions" style="position: absolute; background: white; border: 1px solid #ddd;"></div>
+
+            <button id="submitBtn">submit</button>
+            <table class="guessTable">
+                <tr>
+                    <th>Track Name</th>
+                    <th>Album</th>
+                    <th>Track Number</th>
+                    <th>Track Length</th>
+                    <th>Features</th>
+                </tr>
+            </table>
+            
+            <!-- Help Modal -->
+            <div id="helpModal" class="modal" style="display:none;">
+                <div class="modal-content">
+                    <span class="closeModal" onclick="closeModal()">&times;</span>
+                    <p>Hey lmao... haven't added how you play just yet... Good luck?</p>
+                </div>
+            </div>
+            
+            <!-- Win Modal -->
+            <div id="winModal" class="modal" style="display:none;">
+                <div class="modal-content">
+                    <span class="closeModal" onclick="closeModal()">&times;</span>
+                    <p>Congratulations! You've guessed the correct song!</p>
+                </div>
+            </div>
+            
+            <!-- Lose Modal -->
+            <div id="loseModal" class="modal" style="display:none;">
+                <div class="modal-content">
+                    <span class="closeModal" onclick="closeModal()">&times;</span>
+                    <p>Game Over! You've used all your guesses.</p>
+                </div>
+            </div>
+        </div>
+        <script src="app.js"></script>
+    </body>
+</html>

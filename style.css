@@ -194,6 +194,40 @@ th, td {
     cursor: pointer;
 }
 
+.correctSong{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 80%;
+    margin-bottom: 20px;
+}
+
+.correctSong p{
+    margin-block: 5px;
+}
+
+.stats{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.stat{
+    padding: 3px;
+    background-color: var(--input-background);
+    border-radius: 5px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat p{
+    margin: 5px;
+    width: fit-content;
+}
+
 
 @media (max-width: 510px) {
     td, th {

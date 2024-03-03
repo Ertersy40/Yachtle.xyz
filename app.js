@@ -41,17 +41,43 @@ function showHelpModal() {
 
 function showWinModal() {
     document.getElementById('winModal').style.display = "flex";
-    const img = document.createElement('img');
     const winModal = document.getElementById('winModalContent');
-    img.src = targetInfo.img_url;
-    img.style.width = '150px';
-    img.style.height = 'auto';
-    winModal.appendChild(img)
-
+    revealTarget("Win");
+    showStats("Win")
 }
 
 function showLoseModal() {
     document.getElementById('loseModal').style.display = "flex";
+    revealTarget('Lose');
+    showStats('Lose')
+}
+
+function revealTarget(modal) {
+    const container = document.getElementById(`correctSong${modal}`);
+    const img = document.createElement('img');
+    img.src = targetInfo.img_url;
+    img.style.width = '150px';
+    img.style.height = 'auto';
+    container.appendChild(img);
+
+    const track_name = document.createElement('p');
+    track_name.textContent = targetInfo.track_name;
+    container.appendChild(track_name);
+
+    const ft = document.createElement('p');
+    ft.textContent = `ft. ${targetInfo.features.join(', ')}`;
+    container.appendChild(ft)
+}
+
+function showStats(modal) {
+    const streak = document.getElementById(`streak${modal}`)
+    streak.textContent = localStorage.getItem('streak') || 0;
+    
+    const correct = document.getElementById(`correct${modal}`)
+    correct.textContent = localStorage.getItem('correct') || 0;
+    
+    const gamesPlayed = document.getElementById(`games${modal}`)
+    gamesPlayed.textContent = localStorage.getItem('gamesPlayed') || 0;
 }
 
 function closeModal() {
@@ -66,7 +92,7 @@ function handleSubmit() {
     if (guesses.length >= MAX_GUESSES) {
         console.log('You have reached the maximum number of guesses. Game over!');
         disableGameInput();
-        showLoseModal(); // Show lose modal if maximum guesses are reached
+        gameLost();
         return;
     }
 
@@ -108,6 +134,15 @@ function disableGameInput() {
 function gameWon() {
     console.log("GAME WONNNN!")
     gameWonCheck = true;
+    
+    const today = new Date().toISOString().slice(0, 10)
+    const lastGame = localStorage.getItem('lastGame')
+    if (!(lastGame && lastGame === today.toString())){
+        localStorage.setItem('lastGame', today)
+        localStorage.setItem('streak', parseInt(localStorage.getItem('streak') || 0) + 1);
+        localStorage.setItem('correct', parseInt(localStorage.getItem('correct') || 0) + 1);
+        localStorage.setItem('gamesPlayed', parseInt(localStorage.getItem('gamesPlayed') || 0) + 1);
+    }
     // Disable the input field
     const songInputField = document.getElementById('songInput');
     songInputField.disabled = true;
@@ -126,6 +161,18 @@ function gameWon() {
     // This is a simple way to highlight the correct guess
     lastTableRow.style.backgroundColor = '#90ee90'; // Light green, for example
     showWinModal()
+}
+
+function gameLost() {
+    const today = new Date().toISOString().slice(0, 10)
+    const lastGame = localStorage.getItem('lastGame')
+    if (!(lastGame && lastGame === today.toString())){
+        localStorage.setItem('lastGame', today)
+        localStorage.setItem('streak', 0);
+        localStorage.setItem('gamesPlayed', parseInt(localStorage.getItem('gamesPlayed') || 0) + 1);
+    }
+
+    showLoseModal();
 }
 
 

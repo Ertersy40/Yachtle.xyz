@@ -39,15 +39,45 @@
                 <div id="winModalContent" class="modal-content">
                     <span class="closeModal" onclick="closeModal()">&times;</span>
                     <p>Congratulations! You've guessed the correct song!</p>
-                    
+                    <div class="correctSong" id="correctSongWin"></div>
+                    <div class="stats" id="winStats">
+                        <div class="stat">
+                            <p>Streak:</p>
+                            <p id="streakWin">0</p>
+                        </div>
+                        <div class="stat">
+                            <p>Correct:</p>
+                            <p id="correctWin">0</p>
+                        </div>
+                        <div class="stat">
+                            <p>Games:</p>
+                            <p id="gamesWin">0</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             
             <!-- Lose Modal -->
             <div id="loseModal" class="modal" style="display:none;">
-                <div class="modal-content">
+                <div id="loseModalContent" class="modal-content">
                     <span class="closeModal" onclick="closeModal()">&times;</span>
                     <p>Game Over! You've used all your guesses.</p>
+                    <p>The correct song was:</p>
+                    <div class="correctSong" id="correctSongLose"></div>
+                    <div class="stats">
+                        <div class="stat">
+                            <p>Streak:</p>
+                            <p id="streakLose">0</p>
+                        </div>
+                        <div class="stat">
+                            <p>Correct:</p>
+                            <p id="correctLose">0</p>
+                        </div>
+                        <div class="stat">
+                            <p>Games:</p>
+                            <p id="gamesLose">0</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

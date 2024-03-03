@@ -403,7 +403,7 @@ function compareToTarget(trackInfo) {
     const comparedAlbumIndex = albumsData.findIndex(album => album.album_name === trackInfo.album_name);
     if (targetAlbumIndex === comparedAlbumIndex) {
         comparisonResults.albumMatch = "correct";
-    } else if (Math.abs(targetAlbumIndex - comparedAlbumIndex) === 1) {
+    } else if (Math.abs(targetAlbumIndex - comparedAlbumIndex) === 1 || Math.abs(targetAlbumIndex - comparedAlbumIndex) === 2) {
         comparisonResults.albumMatch = targetAlbumIndex > comparedAlbumIndex ? "before close" : "after close";
     } else {
         comparisonResults.albumMatch = targetAlbumIndex > comparedAlbumIndex ? "before" : "after";

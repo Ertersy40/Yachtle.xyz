@@ -1,8 +1,9 @@
-//TODO: Write a help section
 //TODO: Add sharing
 //TODO: Add ads
-//TODO: Add stats (how many times you've guessed 1-8 times or something)
+//TODO: Make the help section more stylish
+//TODO: Add stats (how many times you've guessed 1-8 or something)
 //TODO: Stop repeats within the last 20 days or something if I can be bothered
+//TODO: Add a favicon
 
 if (!localStorage.getItem('helpShown')){
     localStorage.setItem('helpShown', true);
@@ -456,3 +457,80 @@ function compareToTarget(trackInfo) {
     return comparisonResults;
 }
 
+function generateEmojiString() {
+    // Initialize an empty string to hold the emoji representation
+    let emojiString = '';
+
+    const decideEmoji = (comparison) => {
+        switch (comparison) {
+            case 'correct':
+                return '🟩'; // Green square for correct
+            case 'before close':
+            case 'after close':
+            case 'close':
+                return '🟨'; // Yellow square for close
+            case 'before':
+            case 'after':
+            default:
+                return '⬛'; // No emoji for incorrect or any other case
+        }
+    };
+    
+    // Iterate through the guesses array
+    guesses.forEach(guess => {
+        console.log(guess)
+        const trackInfo = getTrackInfo(guess); // Assuming you have a function to get track info based on the guess
+        const comparisonResults = compareToTarget(trackInfo); // Compare the guess to the target
+        
+        emojiString += albumMatch = decideEmoji(comparisonResults.albumMatch);
+        emojiString += trackNumberMatch = decideEmoji(comparisonResults.trackNumberMatch);
+        emojiString += trackLengthMatch = decideEmoji(comparisonResults.trackLengthMatch);
+        emojiString += sharedFeatures = comparisonResults.sharedFeatures === 'correct' ? '🟩' : (comparisonResults.sharedFeatures === 'close' ? '🟨' : '⬛');
+        emojiString += '\n'
+    });
+    return emojiString;
+}
+
+function shareContent() {
+    const emojis = generateEmojiString();
+
+    const startDate = new Date('2023-08-23');
+    const currentDate = new Date();
+    const timeDiff = currentDate - startDate;
+    const dayNumber = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+
+    const textToShare = `Yachtle Day ${dayNumber}: ${guesses.length}/8\n\n${emojis}\nwww.yachtle.xyz ⛵`;
+
+    console.log(textToShare)
+
+    // Assuming desktops are less likely to be touch-enabled, use this as a heuristic
+    // This is not a perfect check, as some desktops are touch-enabled
+    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+        // Likely a mobile device
+        if (navigator.share) {
+            // Use Web Share API if available
+            navigator.share({
+                text: textToShare,
+            })
+            .then(() => console.log('Content shared successfully!'))
+            .catch((error) => console.log('Error sharing content:', error));
+        } else {
+            // Fallback if Web Share API is not supported
+            copyToClipboard(textToShare);
+        }
+    } else {
+        // Likely a desktop, so directly copy to clipboard
+        copyToClipboard(textToShare);
+    }
+}
+
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text)
+    .then(() => console.log('Guesses copied to clipboard!'))
+    .catch((error) => {
+        console.error('Error copying to clipboard:', error);
+    });
+}
+
+
+  

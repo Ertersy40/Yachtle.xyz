@@ -41,6 +41,13 @@ function showHelpModal() {
 
 function showWinModal() {
     document.getElementById('winModal').style.display = "flex";
+    const img = document.createElement('img');
+    const winModal = document.getElementById('winModalContent');
+    img.src = targetInfo.img_url;
+    img.style.width = '150px';
+    img.style.height = 'auto';
+    winModal.appendChild(img)
+
 }
 
 function showLoseModal() {
@@ -74,7 +81,6 @@ function handleSubmit() {
         if (comparisonResult.albumMatch === "correct" && comparisonResult.trackNumberMatch === "correct" && comparisonResult.trackLengthMatch === "correct") {
             console.log("Congratulations! You've guessed the correct song!");
             gameWon();
-            showWinModal(); // Show win modal on game won
         } else if (guesses.length >= MAX_GUESSES) {
             console.log('No more guesses left. Game over!');
             disableGameInput();

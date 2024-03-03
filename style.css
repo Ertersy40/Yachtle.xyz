@@ -32,6 +32,13 @@ body {
     margin: 0;
     background-color: var(--background-color);
 }
+
+.topButtons{
+    position: absolute;
+    top: 0px;
+    right: 10px;
+}
+
 .contentContainer{
     position: relative;
     max-width: 800px;

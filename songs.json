@@ -221,5 +221,587 @@
                 "features" : []
             }
         ]
+    },
+    {
+        "album_name" : "Teenage Emotions",
+        "img_url" : "https://i.scdn.co/image/ab67616d00001e028caec43ddf3b121ae5a5e5ed",
+        "tracks": [
+            {
+                "track_name" : "Like A Star",
+                "track_length" : "3:43",
+                "features" : []
+            },
+            {
+                "track_name" : "DN Freestyle",
+                "track_length" : "2:10",
+                "features" : []
+            },
+            {
+                "track_name" : "Peek A Boo",
+                "track_length" : "4:06",
+                "features" : ["Migos"]
+            },
+            {
+                "track_name" : "Dirty Mouth",
+                "track_length" : "2:47",
+                "features" : []
+            },
+            {
+                "track_name" : "Harley",
+                "track_length" : "2:48",
+                "features" : []
+            },
+            {
+                "track_name" : "All Around Me",
+                "track_length" : "3:31",
+                "features" : ["YG", "Kamaiyah"]
+            },
+            {
+                "track_name" : "Say My Name",
+                "track_length" : "3:06",
+                "features" : []
+            },
+            {
+                "track_name" : "All You Had To Say",
+                "track_length" : "3:39",
+                "features" : []
+            },
+            {
+                "track_name" : "Better",
+                "track_length" : "4:02",
+                "features" : ["Stefflon Don"]
+            },
+            {
+                "track_name" : "Forever Young",
+                "track_length" : "2:57",
+                "features" : ["Diplo"]
+            },
+            {
+                "track_name" : "Lady In Yellow",
+                "track_length" : "3:38",
+                "features" : []
+            },
+            {
+                "track_name" : "Moments in Time",
+                "track_length" : "2:57",
+                "features" : []
+            },
+            {
+                "track_name" : "Otha Shit",
+                "track_length" : "0:50",
+                "features" : []
+            },
+            {
+                "track_name" : "X Men",
+                "track_length" : "2:44",
+                "features" : ["Evander Griim"]
+            },
+            {
+                "track_name" : "Bring It Back",
+                "track_length" : "4:52",
+                "features" : []
+            },
+            {
+                "track_name" : "Running With A Ghost",
+                "track_length" : "3:51",
+                "features" : ["GRACE"]
+            },
+            {
+                "track_name" : "FYI (Know Now)",
+                "track_length" : "2:45",
+                "features" : []
+            },
+            {
+                "track_name" : "Priorities",
+                "track_length" : "3:30",
+                "features" : []
+            },
+            {
+                "track_name" : "No More",
+                "track_length" : "3:12",
+                "features" : []
+            },
+            {
+                "track_name" : "Made Of Glass",
+                "track_length" : "3:58",
+                "features" : []
+            },
+            {
+                "track_name" : "Momma",
+                "track_length" : "4:06",
+                "features" : ["Sonyae"]
+            }
+        ]
+    },
+    {
+        "album_name" : "Lil Boat 2",
+        "img_url" : "https://i.scdn.co/image/ab67616d00001e022dd3f11b04f31d9acd49015b",
+        "tracks": [
+            {
+                "track_name" : "SELF MADE",
+                "track_length" : "1:52",
+                "features" : []
+            },
+            {
+                "track_name" : "BOOM!",
+                "track_length" : "3:49",
+                "features" : ["Ugly God"]
+            },
+            {
+                "track_name" : "OOPS",
+                "track_length" : "2:35",
+                "features" : ["2 Chainz", "K$upreme"]
+            },
+            {
+                "track_name" : "TALK TO ME NICE",
+                "track_length" : "2:53",
+                "features" : ["Quavo"]
+            },
+            {
+                "track_name" : "GET MONEY BROS.",
+                "track_length" : "2:40",
+                "features" : ["Tee Grizzley"]
+            },
+            {
+                "track_name" : "COUNT ME IN",
+                "track_length" : "2:17",
+                "features" : []
+            },
+            {
+                "track_name" : "she ready",
+                "track_length" : "3:05",
+                "features" : ["PnB Rock"]
+            },
+            {
+                "track_name" : "love me forever",
+                "track_length" : "1:44",
+                "features" : []
+            },
+            {
+                "track_name" : "DAS CAP",
+                "track_length" : "3:04",
+                "features" : []
+            },
+            {
+                "track_name" : "POP OUT",
+                "track_length" : "2:53",
+                "features" : ["Jban$2Turnt"]
+            },
+            {
+                "track_name" : "NBAYOUNGBOAT",
+                "track_length" : "2:19",
+                "features" : ["YoungBoy Never Broke Again"]
+            },
+            {
+                "track_name" : "MICKEY",
+                "track_length" : "2:40",
+                "features" : ["Offset", "Lil Baby"]
+            },
+            {
+                "track_name" : "FWM",
+                "track_length" : "2:22",
+                "features" : []
+            },
+            {
+                "track_name" : "FLEX",
+                "track_length" : "2:10",
+                "features" : []
+            },
+            {
+                "track_name" : "WHOLE lotta GUAP",
+                "track_length" : "2:52",
+                "features" : []
+            },
+            {
+                "track_name" : "BABY DADDY",
+                "track_length" : "3:05",
+                "features" : ["Lil Pump", "Offset"]
+            },
+            {
+                "track_name" : "66",
+                "track_length" : "2:33",
+                "features" : ["Trippie Redd"]
+            }
+        ]
+    },
+    {
+        "album_name" : "Nuthin' 2 Prove",
+        "img_url" : "https://i.scdn.co/image/ab67616d00001e02fc62848680948acaa7d0305d",
+        "tracks": [
+            {
+                "track_name" : "Gimmie My Respect - Intro",
+                "track_length" : "1:48",
+                "features" : []
+            },
+            {
+                "track_name" : "Get Dripped",
+                "track_length" : "2:38",
+                "features" : ["Playboi Carti"]
+            },
+            {
+                "track_name" : "Riley From The Boondocks",
+                "track_length" : "3:05",
+                "features" : []
+            },
+            {
+                "track_name" : "I'm The Mac",
+                "track_length" : "2:11",
+                "features" : []
+            },
+            {
+                "track_name" : "Yacht Club",
+                "track_length" : "2:46",
+                "features" : ["Juice WRLD"]
+            },
+            {
+                "track_name" : "Saint LaurentYS",
+                "track_length" : "2:48",
+                "features" : ["Lil Baby"]
+            },
+            {
+                "track_name" : "We Outta Here!",
+                "track_length" : "3:52",
+                "features" : ["Young Nudy"]
+            },
+            {
+                "track_name" : "Who Want The Smoke?",
+                "track_length" : "3:18",
+                "features" : ["Cardi B", "Offset"]
+            },
+            {
+                "track_name" : "Worth It",
+                "track_length" : "2:47",
+                "features" : []
+            },
+            {
+                "track_name" : "Everything Good, Everything Right",
+                "track_length" : "2:58",
+                "features" : []
+            },
+            {
+                "track_name" : "Next Up",
+                "track_length" : "3:17",
+                "features" : []
+            },
+            {
+                "track_name" : "Forever World",
+                "track_length" : "5:01",
+                "features" : ["Trippie Redd"]
+            },
+            {
+                "track_name" : "Nolia",
+                "track_length" : "3:22",
+                "features" : ["Kevin Gates"]
+            },
+            {
+                "track_name" : "Fallin' In Luv",
+                "track_length" : "3:40",
+                "features" : ["Gunna"]
+            },
+            {
+                "track_name" : "Stoney",
+                "track_length" : "4:02",
+                "features" : []
+            }
+        ]
+    },
+    {
+        "album_name" : "Lil Boat 3",
+        "img_url" : "https://i.scdn.co/image/ab67616d00001e025ee839f6415e0d02fc4f2b49",
+        "tracks": [
+            {
+                "track_name" : "Top Down",
+                "track_length" : "2:40",
+                "features" : []
+            },
+            {
+                "track_name" : "Wock In Stock",
+                "track_length" : "2:22",
+                "features" : []
+            },
+            {
+                "track_name" : "Split/Whole Time",
+                "track_length" : "3:59",
+                "features" : []
+            },
+            {
+                "track_name" : "T.D",
+                "track_length" : "3:52",
+                "features" : ["Tierra Whack", "A$AP Rocky", "Tyler, The Creator"]
+            },
+            {
+                "track_name" : "Pardon Me",
+                "track_length" : "2:58",
+                "features" : ["Future", "Mike WiLL Made-it"]
+            },
+            {
+                "track_name" : "Demon Time",
+                "track_length" : "2:28",
+                "features" : ["Draft Day"]
+            },
+            {
+                "track_name" : "Black Jesus",
+                "track_length" : "3:00",
+                "features" : []
+            },
+            {
+                "track_name" : "From Down Bad",
+                "track_length" : "2:57",
+                "features" : []
+            },
+            {
+                "track_name" : "Love Jones",
+                "track_length" : "1:50",
+                "features" : []
+            },
+            {
+                "track_name" : "Can't Go",
+                "track_length" : "1:52",
+                "features" : []
+            },
+            {
+                "track_name" : "Oprah's Bank Account",
+                "track_length" : "3:25",
+                "features" : ["DaBaby", "Drake"]
+            },
+            {
+                "track_name" : "Range Rover Sports Truck",
+                "track_length" : "2:52",
+                "features" : ["Lil Keed"]
+            },
+            {
+                "track_name" : "Lemon Head",
+                "track_length" : "2:41",
+                "features" : []
+            },
+            {
+                "track_name" : "Don't Forget",
+                "track_length" : "2:07",
+                "features" : []
+            },
+            {
+                "track_name" : "Up There Music",
+                "track_length" : "2:11",
+                "features" : []
+            },
+            {
+                "track_name" : "Westside",
+                "track_length" : "2:31",
+                "features" : []
+            },
+            {
+                "track_name" : "Till The Morning",
+                "track_length" : "3:45",
+                "features" : ["Young Thug", "Lil Durk"]
+            },
+            {
+                "track_name" : "Whew' Chile",
+                "track_length" : "3:18",
+                "features" : []
+            },
+            {
+                "track_name" : "Concrete Boys",
+                "track_length" : "2:52",
+                "features" : []
+            }
+        ]
+    },
+    {
+        "album_name" : "Lil Boat 3.5",
+        "img_url" : "https://i.scdn.co/image/ab67616d00001e02789e7bbd2cc0ae4085b4d59f",
+        "tracks": [
+            {
+                "track_name" : "Lil Diamond Boy",
+                "track_length" : "2:17",
+                "features" : []
+            },
+            {
+                "track_name" : "Flex Up",
+                "track_length" : "2:50",
+                "features" : ["Future", "Playboi Carti"]
+            },
+            {
+                "track_name" : "Coffin",
+                "track_length" : "1:29",
+                "features" : []
+            },
+            {
+                "track_name" : "Certified",
+                "track_length" : "1:25",
+                "features" : []
+            },
+            {
+                "track_name" : "Charmin",
+                "track_length" : "2:31",
+                "features" : ["Cochise"]
+            },
+            {
+                "track_name" : "Just How I'm Feelin",
+                "track_length" : "3:38",
+                "features" : ["Lil Baby"]
+            },
+            {
+                "track_name" : "In My Stussy's",
+                "track_length" : "2:40",
+                "features" : ["Vince Staples"]
+            },
+            {
+                "track_name" : "Asshole",
+                "track_length" : "2:27",
+                "features" : ["Oliver Tree"]
+            }           
+        ]
+    },
+    {
+        "album_name" : "Michigan Boy Boat",
+        "img_url" : "https://i.scdn.co/image/ab67616d00001e02ce747f352b4b912c229fd84f",
+        "tracks": [
+            {
+                "track_name" : "Final Form",
+                "track_length" : "2:14",
+                "features" : []
+            },
+            {
+                "track_name" : "Dynamic Duo",
+                "track_length" : "3:47",
+                "features" : ["Tee Grizzley"]
+            },
+            {
+                "track_name" : "Concrete Goonies",
+                "track_length" : "2:07",
+                "features" : []
+            },
+            {
+                "track_name" : "Don't Even Bother",
+                "track_length" : "2:35",
+                "features" : ["Veeze", "Baby Smoove"]
+            },
+            {
+                "track_name" : "G.I. Joe",
+                "track_length" : "2:46",
+                "features" : ["Louie Ray"]
+            },
+            {
+                "track_name" : "Never Did Coke",
+                "track_length" : "3:03",
+                "features" : ["Swae Lee"]
+            },
+            {
+                "track_name" : "Ghetto Boy Shit",
+                "track_length" : "3:04",
+                "features" : ["Rmc Mike"]
+            },
+            {
+                "track_name" : "Plastic",
+                "track_length" : "3:33",
+                "features" : ["Icewear Vezzo", "Rio Da Yung Og"]
+            },
+            {
+                "track_name" : "Fight Night Round 3",
+                "track_length" : "2:47",
+                "features" : ["Babyface Ray", "Veeze"]
+            },
+            {
+                "track_name" : "SB 2021",
+                "track_length" : "2:56",
+                "features" : ["Sada Baby"]
+            },
+            {
+                "track_name" : "Stunt Double",
+                "track_length" : "2:02",
+                "features" : ["Rio Da Yung Og"]
+            },
+            {
+                "track_name" : "SB5",
+                "track_length" : "3:03",
+                "features" : ["Sada Baby"]
+            },
+            {
+                "track_name" : "Hybrid",
+                "track_length" : "2:52",
+                "features" : ["Baby Tron"]
+            },
+            {
+                "track_name" : "This That One",
+                "track_length" : "3:21",
+                "features" : ["Krispy Life Kidd", "Veeze", "YN Jay", "Slap Savage", "Louie Ray"]
+            }
+        ]
+    },
+    {
+        "album_name" : "Let's Start Here.",
+        "img_url" : "https://i.scdn.co/image/ab67616d00001e026f578b21bce56056473da7e6",
+        "tracks": [
+            {
+                "track_name" : "the BLACK seminole.",
+                "track_length" : "6:51",
+                "features" : []
+            },
+            {
+                "track_name" : "the ride-",
+                "track_length" : "3:10",
+                "features" : []
+            },
+            {
+                "track_name" : "running out of time",
+                "track_length" : "4:29",
+                "features" : []
+            },
+            {
+                "track_name" : "pRETTy.",
+                "track_length" : "2:42",
+                "features" : []
+            },
+            {
+                "track_name" : ":(failure(:",
+                "track_length" : "2:47",
+                "features" : []
+            },
+            {
+                "track_name" : "THE zone~",
+                "track_length" : "4:09",
+                "features" : []
+            },
+            {
+                "track_name" : "WE SAW THE SUN!",
+                "track_length" : "5:31",
+                "features" : []
+            },
+            {
+                "track_name" : "drive ME crazy!",
+                "track_length" : "3:49",
+                "features" : []
+            },
+            {
+                "track_name" : "IVE OFFICIALLY LOST ViSiON!!!!",
+                "track_length" : "5:22",
+                "features" : []
+            },
+            {
+                "track_name" : "sAy sOMETHINg",
+                "track_length" : "3:32",
+                "features" : []
+            },
+            {
+                "track_name" : "paint THE sky",
+                "track_length" : "3:05",
+                "features" : []
+            },
+            {
+                "track_name" : "sHouLd i B?",
+                "track_length" : "2:48",
+                "features" : []
+            },
+            {
+                "track_name" : "The Alchemist.",
+                "track_length" : "2:56",
+                "features" : []
+            },
+            {
+                "track_name" : "REACH THE SUNSHINE.",
+                "track_length" : "5:58",
+                "features" : []
+            }
+        ]
     }
 ]

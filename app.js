@@ -3,7 +3,6 @@
 //TODO: Add sharing
 //TODO: Add stats (how many times you've guessed 1-8 times or something)
 //TODO: Write a help section
-//TODO: Get rid of little square again after submitting
 
 if (!localStorage.getItem('helpShown')){
     localStorage.setItem('helpShown', true);
@@ -103,6 +102,7 @@ function handleSubmit() {
 
     if (allTrackNames.includes(songInput)) {
         document.getElementById('songInput').value = '';
+        document.getElementById('suggestions').style.display = 'none';
         addGuess(songInput);
         guesses.push(songInput);
         updateGuessCounterDisplay(); // Update guess counter display
@@ -325,6 +325,7 @@ document.getElementById('songInput').addEventListener('input', function() {
         const filteredTracks = allTrackNames.filter(name => name.toLowerCase().startsWith(inputVal)).slice(0, 5); // Limit to 5 suggestions
         displaySuggestions(filteredTracks);
     } else {
+        console.log("empty")
         // Clear suggestions if the input is empty
         displaySuggestions([]);
     }
@@ -343,11 +344,11 @@ function displaySuggestions(trackNames) {
         document.querySelectorAll('.suggestion-item').forEach(item => {
             item.addEventListener('click', function() {
                 document.getElementById('songInput').value = this.innerText;
+                displaySuggestions([])
                 suggestionsBox.innerHTML = ''; // Clear suggestions
             });
         });
     } else{
-        console.log('hide the thing?')
         document.getElementById('suggestions').style.display = 'none';
     }
 }

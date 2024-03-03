@@ -1,4 +1,3 @@
-//TODO: Help Modal at the start
 //TODO: Add guesses
 //TODO: Add stats in
 //TODO: Stop repeats within the last 20 days or something if I can be bothered
@@ -33,7 +32,10 @@ function pickRandomSong() {
     }
 }
 
-let guessCounter = 0; // Initialize guess counter
+function updateGuessCounterDisplay() {
+    document.getElementById('guessCounter').textContent = `Guesses: ${guesses.length}`;
+}
+
 
 function showHelpModal() {
     document.getElementById('helpModal').style.display = "flex";
@@ -66,7 +68,7 @@ function handleSubmit() {
     if (allTrackNames.includes(songInput)) {
         addGuess(songInput);
         guesses.push(songInput);
-        guessCounter++; // Increment guess counter
+        updateGuessCounterDisplay(); // Update guess counter display
         localStorage.setItem('guesses', JSON.stringify(guesses));
 
         const comparisonResult = compareToTarget(getTrackInfo(songInput));

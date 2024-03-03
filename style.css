@@ -90,6 +90,13 @@ button:hover {
     background-color: var(--button-hover);
 }
 
+#guessCounter{
+    color: var(--text-color);
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
 /* Table styling */
 table {
     width: 100%;

@@ -1,9 +1,7 @@
-//TODO: Add guesses
 //TODO: Add stats in
 //TODO: Stop repeats within the last 20 days or something if I can be bothered
 
 //FIXME: weird white dot from suggestions
-//FIXME: autocorrect
 if (!localStorage.getItem('helpShown')){
     localStorage.setItem('helpShown', true);
     showHelpModal()

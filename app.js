@@ -62,9 +62,11 @@ function revealTarget(modal) {
     track_name.textContent = targetInfo.track_name;
     container.appendChild(track_name);
 
+    if (targetInfo.features.length > 0){
     const ft = document.createElement('p');
-    ft.textContent = `ft. ${targetInfo.features.join(', ')}`;
-    container.appendChild(ft)
+        ft.textContent = `ft. ${targetInfo.features.join(', ')}`;
+        container.appendChild(ft)
+    }
 }
 
 function showStats(modal) {
@@ -427,8 +429,11 @@ function compareToTarget(trackInfo) {
     const targetFeaturesSet = new Set(targetInfo.features);
     const trackFeaturesSet = new Set(trackInfo.features);
     const intersection = new Set([...targetFeaturesSet].filter(x => trackFeaturesSet.has(x)));
-
-    if (intersection.size > 0) {
+    
+    if (targetFeaturesSet.size === 0 && trackFeaturesSet.size === 0){
+        comparisonResults.sharedFeatures = "correct"
+        
+    } else if (intersection.size > 0) {
         // At least one shared feature
         if (targetFeaturesSet.size === trackFeaturesSet.size && intersection.size === targetFeaturesSet.size) {
             // All features match

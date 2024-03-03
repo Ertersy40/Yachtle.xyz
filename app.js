@@ -1,4 +1,9 @@
 //TODO: Stop repeats within the last 20 days or something if I can be bothered
+//TODO: Add ads
+//TODO: Add sharing
+//TODO: Add stats (how many times you've guessed 1-8 times or something)
+//TODO: Write a help section
+//TODO: Get rid of little square again after submitting
 
 if (!localStorage.getItem('helpShown')){
     localStorage.setItem('helpShown', true);

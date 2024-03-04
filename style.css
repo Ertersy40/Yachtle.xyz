@@ -89,6 +89,7 @@ input[type="search"], textarea{
 }
 
 #suggestions {
+    translate: 0px -10px;
     display: none;
     z-index: 1;
     max-height: 200px;

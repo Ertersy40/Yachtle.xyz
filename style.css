@@ -253,3 +253,9 @@ th, td {
     height: 100vh;
     overflow: hidden;
 }
+
+.btn-container{
+    position: fixed;
+    bottom: 10px;
+    left: 30px
+}

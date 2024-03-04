@@ -255,7 +255,8 @@ th, td {
 }
 
 .btn-container{
+    z-index: 100;
     position: fixed;
     bottom: 10px;
-    left: 30px
+    left: 30px;
 }

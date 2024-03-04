@@ -58,6 +58,7 @@ body {
     max-width: 800px;
 }
 
+
 /* Styling for the main heading */
 h1 {
     color: var(--text-color);
@@ -83,6 +84,10 @@ input[type="search"], textarea{
 }
 
 /* Suggestion box styling */
+.search{
+    width: 100%;
+}
+
 #suggestions {
     display: none;
     z-index: 1;

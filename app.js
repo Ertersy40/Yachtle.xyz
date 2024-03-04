@@ -1,6 +1,4 @@
-//TODO: Add ads
 //TODO: Make the help section more stylish
-//TODO: Stop repeats within the last 20 days or something if I can be bothered
 //TODO: Add stats (how many times you've guessed 1-8 or something)
 
 if (!localStorage.getItem('helpShown')){
@@ -11,6 +9,7 @@ const MAX_GUESSES = 8;
 let targetInfo = {};
 let guesses = [];
 let gameWonCheck = false;
+let gameLostCheck = false;
 
 function pickRandomSong() {
     // Assuming allTrackNames is an array of song names available globally
@@ -55,20 +54,30 @@ function updateGuessCounterDisplay() {
 
 
 function showHelpModal() {
+    disableScrolling();
     document.getElementById('helpModal').style.display = "flex";
 }
 
 function showWinModal() {
+    disableScrolling();
     document.getElementById('winModal').style.display = "flex";
-    const winModal = document.getElementById('winModalContent');
     revealTarget("Win");
     showStats("Win")
 }
 
 function showLoseModal() {
+    disableScrolling();
     document.getElementById('loseModal').style.display = "flex";
     revealTarget('Lose');
     showStats('Lose')
+}
+
+function disableScrolling(){
+    document.body.classList.add("stop-scrolling");
+}
+
+function enableScroll() {
+    document.body.classList.remove("stop-scrolling");
 }
 
 function revealTarget(modal) {
@@ -102,6 +111,7 @@ function showStats(modal) {
 }
 
 function closeModal() {
+    enableScroll();
     document.querySelectorAll('.modal').forEach(modal => {
         modal.style.display = "none";
     });
@@ -144,7 +154,6 @@ function disableGameInput() {
 
 
 function gameWon() {
-    gameWonCheck = true;
     
     const today = new Date();
     const formattedToday = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0'); // Format YYYY-MM-DD
@@ -156,26 +165,22 @@ function gameWon() {
         localStorage.setItem('correct', parseInt(localStorage.getItem('correct') || 0) + 1);
         localStorage.setItem('gamesPlayed', parseInt(localStorage.getItem('gamesPlayed') || 0) + 1);
     }
-    // Disable the input field
-    const songInputField = document.getElementById('songInput');
-    songInputField.disabled = true;
-
-    // Disable the submit button
-    const submitButton = document.getElementById('submitBtn');
-    submitButton.disabled = true;
+    disableGameInput();
 
     // Set the last table row's id to 'correctGuess'
     const guessTable = document.querySelector('.guessTable');
     const lastTableRow = guessTable.lastElementChild;
     lastTableRow.id = 'correctGuess';
 
-    // Optionally, you can add a message or visual cue to the user that they have won
-    // For example, adding a "Game Won" message above the table or changing the background color of the last row
-    // This is a simple way to highlight the correct guess
-    showWinModal()
+    
+    if (!gameWonCheck){
+        gameWonCheck = true;
+        showWinModal();
+    }
 }
 
 function gameLost() {
+    disableGameInput();
     const today = new Date();
     const formattedToday = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0'); // Format YYYY-MM-DD
     const lastGame = localStorage.getItem('lastGame')
@@ -184,8 +189,11 @@ function gameLost() {
         localStorage.setItem('streak', 0);
         localStorage.setItem('gamesPlayed', parseInt(localStorage.getItem('gamesPlayed') || 0) + 1);
     }
-
-    showLoseModal();
+    
+    if (!gameLostCheck){
+        gameLostCheck = true;
+        showLoseModal();
+    }
 }
 
 
@@ -256,8 +264,9 @@ function addGuess(guess) {
     if (JSON.stringify(trackInfo) === JSON.stringify(targetInfo)) {
         gameWon()
     } else if (guesses.length >= MAX_GUESSES) {
+        gameLost();
         disableGameInput();
-        showLoseModal(); // Show lose modal if no more guesses are left
+        
     }
 }
 

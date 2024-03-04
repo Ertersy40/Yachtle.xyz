@@ -31,6 +31,7 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     background-color: var(--background-color);
+    padding-block: 110px;
 }
 
 .topButtons{
@@ -246,4 +247,9 @@ th, td {
     td, th {
         font-size: 10px;
     }
+}
+
+.stop-scrolling {
+    height: 100vh;
+    overflow: hidden;
 }

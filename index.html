@@ -30,15 +30,15 @@
             <button id="submitBtn">submit</button>
             <div id="guessCounter">Guesses: 0/8</div>
 
-            <table class="guessTable">
-                <tr>
-                    <th>Track Name</th>
-                    <th>Album</th>
-                    <th>Track Number</th>
-                    <th>Track Length</th>
-                    <th>Features</th>
-                </tr>
-            </table>
+            <div class="grid-table">
+                <div class="grid-header">Track Name</div>
+                <div class="grid-header">Album</div>
+                <div class="grid-header">Track Number</div>
+                <div class="grid-header">Track Length</div>
+                <div class="grid-header">Features</div>
+                
+                <tbody class="guessTableBody"></tbody>
+            </div>
             
             <!-- Help Modal -->
             <div id="helpModal" class="modal" style="display:none;">

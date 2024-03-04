@@ -1,5 +1,6 @@
 //TODO: Make the help section more stylish
 //TODO: Add stats (how many times you've guessed 1-8 or something)
+//TODO: Make the arrows bounce
 
 if (!localStorage.getItem('helpShown')){
     localStorage.setItem('helpShown', true);
@@ -198,77 +199,98 @@ function gameLost() {
 
 
 function addGuess(guess) {
-
     const trackInfo = getTrackInfo(guess); // Assuming guess is the track name
-
     const correctness = compareToTarget(trackInfo);
 
     // Create a row for the new guess
-    const row = document.createElement('tr');
-    let cell = document.createElement('td');
+    
+    // Add guess name cell
+    let cell = document.createElement('div');
     cell.textContent = guess;
-    cell.className = guess === targetInfo.track_name ? "correct" : ""
-    row.appendChild(cell);
+    cell.className = 'grid-cell ' + (guess === targetInfo.track_name ? "correct" : "");
+    document.querySelector('.grid-table').appendChild(cell);
 
+    // Add album comparison cell with image and arrow
     // Adding an image cell with arrow for album comparison
-    cell = document.createElement('td');
+    cell = document.createElement('div');
+    cell.className = 'grid-cell ' + correctness.albumMatch.replace(" ", "-") + ' album_cell';
 
-    // Determine the arrow symbol based on albumMatch result
-    let imgSpan = document.createElement('span'); // Create a new span for the symbol
-
-    cell.className = correctness.albumMatch.replace(" ", "-")
-    cell.className += ' album_cell'
-    if (correctness.albumMatch.includes("before")) {
-        imgSpan.textContent = "↑"; // Up arrow for before
-    } else if (correctness.albumMatch.includes("after")) {
-        imgSpan.textContent = "↓"; // Down arrow for after
-    }
+    const albumContainer = document.createElement('div'); // Create a new div for the album image and arrow
+    albumContainer.style.display = 'flex'; // Use flexbox to align items inline
+    albumContainer.style.alignItems = 'center'; // Center items vertically
 
     const img = document.createElement('img');
     img.src = trackInfo.img_url; // Ensure you have an img_url property
     img.style.width = '50px'; // Adjust size as needed
     img.style.height = 'auto';
+    img.style.marginRight = '10px'; // Add some space between the image and the arrow
 
-    // Append the img element directly to the cell, then the arrow symbol (imgSpan)
-    cell.appendChild(img); // This ensures the image is to the left of the arrow
-    cell.appendChild(imgSpan); // Append the arrow symbol after the img
-    row.appendChild(cell);
+    let arrowSpan = document.createElement('span'); // Create a new span for the symbol
+    arrowSpan.className = "arrow"; // Assign a base class for styling
+
+    if (correctness.albumMatch.includes("before")) {
+        arrowSpan.textContent = "↑"; // Up arrow for before
+        arrowSpan.classList.add("up-arrow"); // Add class for up arrow
+    } else if (correctness.albumMatch.includes("after")) {
+        arrowSpan.textContent = "↓"; // Down arrow for after
+        arrowSpan.classList.add("down-arrow"); // Add class for down arrow
+    }
+
+    // Append the image and arrow span to the album container
+    albumContainer.appendChild(img);
+    albumContainer.appendChild(arrowSpan);
+
+    // Append the album container to the cell
+    cell.appendChild(albumContainer);
+    document.querySelector('.grid-table').appendChild(cell);
 
 
+    // Function to create and append cells based on correctness
     // Function to create and append cells based on correctness, now includes symbols for direction
     const appendCorrectnessCell = (criteria, value) => {
-        let cell = document.createElement('td');
+        let cell = document.createElement('div');
+        let symbolSpan = document.createElement('span'); // Create a new span for the arrow symbol
+        symbolSpan.className = "arrow-container"; // Reuse the arrow-container class for styling
+
         let symbol = ""; // Default, no symbol
         if (criteria.includes("before")) {
-            symbol = "↑ "; // Up arrow for before
+            symbol = "↑"; // Up arrow for before
+            symbolSpan.className += " arrow up-arrow"; // Add classes for up arrow
         } else if (criteria.includes("after")) {
-            symbol = "↓ "; // Down arrow for after
+            symbol = "↓"; // Down arrow for after
+            symbolSpan.className += " arrow down-arrow"; // Add classes for down arrow
         }
-        cell.innerHTML = value + symbol; // Use innerHTML to properly render the symbol
+        symbolSpan.textContent = symbol; // Set the text content of the span to the arrow symbol
+        
+        // Now set the cell's content to the value and append the symbolSpan next to it
+        cell.textContent = value + " "; // Add a space for separation
+        cell.appendChild(symbolSpan); // Append the arrow span next to the value
         cell.className = criteria.replace(" ", "-"); // Use className for styling based on the criteria
-        row.appendChild(cell);
+        cell.className += ' grid-cell'
+        document.querySelector('.grid-table').appendChild(cell);
     };
 
-    // Adjusted calls to appendCorrectnessCell to include actual values and correctness indicators
+
+    // Append cells for track number, track length, and features
     appendCorrectnessCell(correctness.trackNumberMatch, trackInfo.track_number.toString());
     appendCorrectnessCell(correctness.trackLengthMatch, trackInfo.track_length);
 
-    cell = document.createElement('td');
-    cell.textContent = trackInfo.features.join(', ') || 'no features'; // Directly show the features
-    cell.className = correctness.sharedFeatures
-    row.appendChild(cell);
+    cell = document.createElement('div');
+    cell.textContent = trackInfo.features.join(', ') || 'no features';
+    cell.className = 'grid-cell ' + correctness.sharedFeatures;
 
     // Append the new row to the guess table
-    document.querySelector('.guessTable').appendChild(row);
+    document.querySelector('.grid-table').appendChild(cell);
 
+    // Check for win or lose conditions
     if (JSON.stringify(trackInfo) === JSON.stringify(targetInfo)) {
-        gameWon()
+        gameWon();
     } else if (guesses.length >= MAX_GUESSES) {
         gameLost();
         disableGameInput();
-        
     }
 }
+
 
 
 document.addEventListener('DOMContentLoaded', function() {

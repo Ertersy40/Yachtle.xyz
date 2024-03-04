@@ -17,28 +17,37 @@
 
     --correct: #56c14a;
     --close: #e0c736;
+
+    --cell-color: rgba(255, 255, 255, 0.188);
 }
 
 
 /* General body styling */
 body {
     padding-inline: 5%;
-    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     font-family: 'Arial', sans-serif;
     margin: 0;
-    padding-block: 110px;
+    padding-block: 10%;
     /* background-image: radial-gradient(at top right, rgba(255,255,255,0.15) 0%, var(--background-color) 70%); */
     background-color: var(--background-color); /* Fallback color */
 }
 
 .topButtons{
-    position: absolute;
-    top: 0px;
+    z-index: 100;
+    position: fixed;
+    top: 20px;
     right: 10px;
+}
+.topButtons button{
+    height: 40px;
+    width: 35px;
+    border-radius: 30px;
+    background-color: var(--background-color);
+    border: 3px solid var(--button-color);
 }
 
 .contentContainer{
@@ -113,38 +122,77 @@ button:hover {
 }
 
 /* Table styling */
-table {
+.grid-table {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Keep your 5 columns */
+    row-gap: 5px;
+    column-gap: 2px;
     width: 100%;
-    border-collapse: collapse;
     margin: 20px 0;
-    /* background-color: black; */
 }
 
-th, td {
+
+.grid-header {
+    font-weight: bold;
     color: var(--text-color);
-    text-align: left;
     padding: 8px;
-    border-bottom: 1px solid var(--outline-color);
-    vertical-align: middle;
+    text-align: center;
 }
 
-tr, .album_cell {
-    height: fit-content;
-    min-height: 100px;
+.grid-cell {
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Changed to center for better default alignment */
+    background-color: var(--cell-color);
+    padding: 8px;
+    text-align: center;
+    min-width: 0; /* Allows the content to shrink without overflow */
+    overflow: hidden; /* Hides any overflow */
+    word-break: break-word; /* Ensures text wraps */
 }
 
-/* Correct guess styling */
-#correctGuess {
-    background-color: var(--correct);
-    color: var(--text-color2);
+/* Target the first element in each row */
+.grid-table .grid-cell:nth-child(5n+1) {
+    border-radius: 10px 0px 0px 10px;
 }
-.album_cell img, .album_cell span {
-    vertical-align: middle; /* Aligns the image and span in the middle of the cell */
+
+.grid-table .grid-cell:nth-child(5n) {
+    border-radius: 0px 10px 10px 0px;
 }
+
 .album_cell {
-    min-width: 70px; /* Keep your min-width */
+    display: flex; /* Keeps the album image and span next to each other */
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Align items to the start of the cell */
+    min-width: 70px; /* Keeps your min-width */
+    min-height: 70px;
 }
 
+.album_cell img, .album_cell span {
+    vertical-align: middle; /* This may not be necessary with flexbox alignment */
+}
+
+@media (max-width: 768px) {
+    .grid-header{
+        font-size: smaller;
+    }
+    .grid-cell {
+        padding: 4px;
+        font-size: smaller;
+    }
+}
+
+/* Media query for very small screens */
+@media (max-width: 480px) {
+    .grid-header{
+        font-size: x-small;
+    }
+    .grid-cell {
+        padding: 2px;
+        font-size: x-small;
+    }
+}
 
 /* Correctness indicators */
 .correct {
@@ -247,13 +295,6 @@ tr, .album_cell {
     width: fit-content;
 }
 
-
-@media (max-width: 510px) {
-    td, th {
-        font-size: 10px;
-    }
-}
-
 .stop-scrolling {
     height: 100vh;
     overflow: hidden;
@@ -280,4 +321,37 @@ tr, .album_cell {
 
 .correct, .before-close, .after-close, .close {
     animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes bounceUp {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes bounceDown {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(5px);
+    }
+}
+
+.up-arrow {
+    animation: bounceUp 1s 2; /* Play the animation twice */
+}
+
+.down-arrow {
+    animation: bounceDown 1s 2; /* Play the animation twice */
+}
+
+
+.arrow-container {
+    display: inline-block; /* Or 'block' if you want the arrows to appear below the image */
+    vertical-align: middle; /* Aligns the arrow vertically center if inline-block */
+    /* Additional styling as needed */
 }

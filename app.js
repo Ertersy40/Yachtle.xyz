@@ -1,9 +1,7 @@
-//TODO: Add sharing
 //TODO: Add ads
 //TODO: Make the help section more stylish
-//TODO: Add stats (how many times you've guessed 1-8 or something)
 //TODO: Stop repeats within the last 20 days or something if I can be bothered
-//TODO: Add a favicon
+//TODO: Add stats (how many times you've guessed 1-8 or something)
 
 if (!localStorage.getItem('helpShown')){
     localStorage.setItem('helpShown', true);
@@ -15,21 +13,39 @@ let guesses = [];
 let gameWonCheck = false;
 
 function pickRandomSong() {
-    if (allTrackNames.length > 0) {
-        // Generate a seed from today's date
-        const today = new Date();
-        const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
-        
-        // Simple seeded random function
-        const pseudoRandom = (seed) => {
-            let x = Math.sin(seed++) * 10000;
-            return x - Math.floor(x);
-        };
+    // Assuming allTrackNames is an array of song names available globally
 
-        // Use the pseudo-random function to get a random index
-        const randomIndex = Math.floor(pseudoRandom(seed) * allTrackNames.length);
-        const randomSong = allTrackNames[randomIndex];
-        targetInfo = getTrackInfo(randomSong);
+    // Generate a seed from today's date
+    const today = new Date();
+    const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+
+    // Simple seeded random function
+    const pseudoRandom = seed => {
+        let x = Math.sin(seed++) * 10000;
+        return x - Math.floor(x);
+    };
+
+    // Generate a list of indices to exclude based on the last 40 days
+    let excludeIndices = new Set();
+    for (let daysAgo = 1; daysAgo <= 40; daysAgo++) {
+        const seedForDay = seed - daysAgo; // Adjust seed for each day in the past 40 days
+        const indexToExclude = Math.floor(pseudoRandom(seedForDay) * allTrackNames.length);
+        excludeIndices.add(indexToExclude);
+    }
+
+    // Filter out songs to exclude
+    const availableSongs = allTrackNames.filter((_, index) => !excludeIndices.has(index));
+
+    if (availableSongs.length > 0) {
+        // Use the pseudo-random function to get a random index from the available songs
+        const randomIndex = Math.floor(pseudoRandom(seed) * availableSongs.length);
+        randomSong = availableSongs[randomIndex];
+        targetInfo = getTrackInfo(randomSong)
+        
+    } else {
+        // Handle the case where no songs are available (unlikely with a large list and few exclusions)
+        console.log("No eligible songs to pick from.");
+        return null; // Or handle this case appropriately
     }
 }
 
@@ -95,7 +111,6 @@ function handleSubmit() {
     const songInput = document.getElementById('songInput').value;
 
     if (guesses.length >= MAX_GUESSES) {
-        console.log('You have reached the maximum number of guesses. Game over!');
         disableGameInput();
         gameLost();
         return;
@@ -129,7 +144,6 @@ function disableGameInput() {
 
 
 function gameWon() {
-    console.log("GAME WONNNN!")
     gameWonCheck = true;
     
     const today = new Date();
@@ -242,7 +256,6 @@ function addGuess(guess) {
     if (JSON.stringify(trackInfo) === JSON.stringify(targetInfo)) {
         gameWon()
     } else if (guesses.length >= MAX_GUESSES) {
-        console.log('No more guesses left. Game over!');
         disableGameInput();
         showLoseModal(); // Show lose modal if no more guesses are left
     }
@@ -326,7 +339,6 @@ document.getElementById('songInput').addEventListener('input', function() {
         const filteredTracks = allTrackNames.filter(name => name.toLowerCase().startsWith(inputVal)).slice(0, 5); // Limit to 5 suggestions
         displaySuggestions(filteredTracks);
     } else {
-        console.log("empty")
         // Clear suggestions if the input is empty
         displaySuggestions([]);
     }
@@ -478,7 +490,6 @@ function generateEmojiString() {
     
     // Iterate through the guesses array
     guesses.forEach(guess => {
-        console.log(guess)
         const trackInfo = getTrackInfo(guess); // Assuming you have a function to get track info based on the guess
         const comparisonResults = compareToTarget(trackInfo); // Compare the guess to the target
         
@@ -501,8 +512,6 @@ function shareContent() {
 
     const textToShare = `Yachtle Day ${dayNumber}: ${guesses.length}/8\n\n${emojis}\nwww.yachtle.xyz ⛵`;
 
-    console.log(textToShare)
-
     // Assuming desktops are less likely to be touch-enabled, use this as a heuristic
     // This is not a perfect check, as some desktops are touch-enabled
     if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
@@ -512,7 +521,6 @@ function shareContent() {
             navigator.share({
                 text: textToShare,
             })
-            .then(() => console.log('Content shared successfully!'))
             .catch((error) => console.log('Error sharing content:', error));
         } else {
             // Fallback if Web Share API is not supported
@@ -526,7 +534,6 @@ function shareContent() {
 
 function copyToClipboard(text) {
     navigator.clipboard.writeText(text)
-    .then(() => console.log('Guesses copied to clipboard!'))
     .catch((error) => {
         console.error('Error copying to clipboard:', error);
     });

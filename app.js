@@ -6,6 +6,7 @@ if (!localStorage.getItem('helpShown')){
     localStorage.setItem('helpShown', true);
     showHelpModal()
 }
+
 const MAX_GUESSES = 8;
 let targetInfo = {};
 let guesses = [];
@@ -167,11 +168,6 @@ function gameWon() {
         localStorage.setItem('gamesPlayed', parseInt(localStorage.getItem('gamesPlayed') || 0) + 1);
     }
     disableGameInput();
-
-    // Set the last table row's id to 'correctGuess'
-    const guessTable = document.querySelector('.guessTable');
-    const lastTableRow = guessTable.lastElementChild;
-    lastTableRow.id = 'correctGuess';
 
     
     if (!gameWonCheck){

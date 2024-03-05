@@ -221,6 +221,24 @@ button:hover {
     color: var(--text-color2);
 }
 
+.greenText{
+    background-color: var(--correct);
+    border-radius: 3px;
+    padding-inline: 3px;
+    padding-block: 1px;
+}
+
+.yellowText{
+    background-color: var(--close);
+    border-radius: 3px;
+    padding-inline: 3px;
+    padding-block: 1px;
+}
+
+li{
+    margin-block: 10px;
+}
+
 
 .modal {
     display: none;

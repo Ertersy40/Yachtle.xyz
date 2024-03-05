@@ -1,6 +1,4 @@
-//TODO: Make the help section more stylish
 //TODO: Add stats (how many times you've guessed 1-8 or something)
-//TODO: Make the arrows bounce
 
 if (!localStorage.getItem('helpShown')){
     localStorage.setItem('helpShown', true);

@@ -1,5 +1,3 @@
-//TODO: Add stats (how many times you've guessed 1-8 or something)
-
 if (!localStorage.getItem('helpShown')){
     localStorage.setItem('helpShown', true);
     showHelpModal()
@@ -10,6 +8,31 @@ let targetInfo = {};
 let guesses = [];
 let gameWonCheck = false;
 let gameLostCheck = false;
+let hardGameWonCheck = false;
+let hardGameLostCheck = false;
+let changingModes = false;
+
+const easyLayer = document.querySelector('.background .easy');
+const hardLayer = document.querySelector('.background .hard');
+
+let hardMode = false;
+if (localStorage.getItem('hard') && localStorage.getItem('hard') === 'true'){
+    // console.log("HARD MODE")
+    hardMode = true
+    hardLayer.style.opacity = 1;
+    easyLayer.style.opacity = 0;
+}else{
+    // console.log("Easy mode!")
+    localStorage.setItem('hard', false)
+    easyLayer.style.opacity = 1;
+    hardLayer.style.opacity = 0;
+}
+
+let trackNumOrder = true;
+if (localStorage.getItem('NumericTrackNumbers') && localStorage.getItem('NumericTrackNumbers') === 'true'){
+    trackNumOrder = false;
+}
+
 
 function pickRandomSong() {
     // Assuming allTrackNames is an array of song names available globally
@@ -31,7 +54,6 @@ function pickRandomSong() {
         const indexToExclude = Math.floor(pseudoRandom(seedForDay) * allTrackNames.length);
         excludeIndices.add(indexToExclude);
     }
-
     // Filter out songs to exclude
     const availableSongs = allTrackNames.filter((_, index) => !excludeIndices.has(index));
 
@@ -42,27 +64,46 @@ function pickRandomSong() {
         targetInfo = getTrackInfo(randomSong)
         
     } else {
-        // Handle the case where no songs are available (unlikely with a large list and few exclusions)
-        console.log("No eligible songs to pick from.");
-        return null; // Or handle this case appropriately
+        // Handle the case where no songs are available
+        const randomIndex = Math.floor(pseudoRandom(seed) * allTrackNames.length);
+        randomSong = allTrackNames[randomIndex];
+        targetInfo = getTrackInfo(randomSong)
     }
 }
 
 function updateGuessCounterDisplay() {
-    document.getElementById('guessCounter').textContent = `Guesses: ${guesses.length}/8`;
+    document.getElementById('guesses').innerHTML = `Guess: ${guesses.length}<span class="alternate-font">/</span>8`;
 }
-
 
 function showHelpModal() {
     disableScrolling();
     document.getElementById('helpModal').style.display = "flex";
 }
 
+function showSettingsModal() {
+    document.getElementById('HardSwitch').checked = hardMode;
+    document.getElementById('TrackNumSwitch').checked = !trackNumOrder
+    disableScrolling();
+    document.getElementById('settingsModal').style.display = "flex";
+}
+
+function showResults() {
+    if ((gameWonCheck && !hardMode) || (hardGameWonCheck && hardMode)){
+        showWinModal()
+    } else {
+        showLoseModal()
+    }
+}
 function showWinModal() {
     disableScrolling();
     document.getElementById('winModal').style.display = "flex";
     revealTarget("Win");
     showStats("Win")
+    const hardModeNotifier = document.getElementById('hardModeNotifier')
+    hardModeNotifier.textContent = ""
+    if (!hardMode && !hardGameWonCheck){
+        hardModeNotifier.textContent = "Try out hard mode in settings!"
+    }
 }
 
 function showLoseModal() {
@@ -82,21 +123,24 @@ function enableScroll() {
 
 function revealTarget(modal) {
     const container = document.getElementById(`correctSong${modal}`);
+    container.innerHTML = ""
     const img = document.createElement('img');
     img.src = targetInfo.img_url;
     img.style.width = '150px';
     img.style.height = 'auto';
+    img.classList.add('target-image');
     container.appendChild(img);
 
     const track_name = document.createElement('p');
     track_name.textContent = targetInfo.track_name;
     container.appendChild(track_name);
 
-    if (targetInfo.features.length > 0){
-    const ft = document.createElement('p');
+    if (targetInfo.features && targetInfo.features.length > 0) {
+        const ft = document.createElement('p');
         ft.textContent = `ft. ${targetInfo.features.join(', ')}`;
-        container.appendChild(ft)
+        container.appendChild(ft);
     }
+    
 }
 
 function showStats(modal) {
@@ -117,50 +161,202 @@ function closeModal() {
     });
 }
 
-function handleSubmit() {
-    const songInput = document.getElementById('songInput').value;
+// Get the checkbox element
+const hardSwitch = document.getElementById('HardSwitch');
 
-    if (guesses.length >= MAX_GUESSES) {
+// Add an event listener for the 'change' event
+hardSwitch.addEventListener('change', function() {
+    changingModes = true
+    guesses = [];
+    document.querySelector('.grid-table').innerHTML = '<div class="grid-header">Track Name</div><div class="grid-header">Album</div><div class="grid-header">Track Number</div><div class="grid-header">Track Length</div><div class="grid-header">Features</div>';
+    localStorage.setItem('hard', this.checked)
+    hardMode = this.checked
+    
+    const today = new Date();
+    const formattedToday = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0'); // Format YYYY-MM-DD
+    // console.log('Mode:', this.checked ? 'hard' : 'easy')
+    const lastGame = localStorage.getItem(hardMode ? 'lastHardGame' : 'lastGame');
+    // console.log(lastGame)
+    if ((lastGame && lastGame === formattedToday.toString())){
         disableGameInput();
-        gameLost();
-        return;
+    }else{
+        enableGameInput();
     }
+    
+    if (this.checked) {
+        // Hard Mode is on!
+        hardLayer.style.opacity = 1;
+        easyLayer.style.opacity = 0;
+        
+        //load the hard mode random song of today
+        //reset guesses to whatever the localstorage says
+        //load the guesses in
+        
+        fetchAlbums('hardSongs.json').then(trackNames => {
+            allTrackNames = trackNames;
+            pickRandomSong();
+            checkAndUpdateDate();
+            updateGuessCounterDisplay();
+        });
+        adjustBodyHeight();
+        
+        
+    } else {
+        // Hard Mode is off!
+        easyLayer.style.opacity = 1;
+        hardLayer.style.opacity = 0;
+        
+        //load the easy mode random song of today
+        //reset guesses to whatever the localstorage says
+        //load the guesses in
+        fetchAlbums('songs.json').then(trackNames => {
+            allTrackNames = trackNames;
+            pickRandomSong();
+            checkAndUpdateDate();
+            updateGuessCounterDisplay();
+        });
+        adjustBodyHeight();
+        
+    }
+    setTimeout(() => {
+        changingModes = false;
+    }, 1000)
+});
 
-    if (allTrackNames.includes(songInput)) {
+const trackNumSwitch = document.getElementById('TrackNumSwitch');
+
+trackNumSwitch.addEventListener('change', function() {
+    trackNumOrder = !this.checked;
+    localStorage.setItem('NumericTrackNumbers', this.checked)
+    let tempGuesses = guesses;
+    guesses = [];
+    document.querySelector('.grid-table').innerHTML = '<div class="grid-header">Track Name</div><div class="grid-header">Album</div><div class="grid-header">Track Number</div><div class="grid-header">Track Length</div><div class="grid-header">Features</div>'
+    checkAndUpdateDate();
+})
+
+
+function handleSubmit() {
+    consent = localStorage.getItem('cookieConsent')
+    if (consent && consent.analytics){
+        gtag('event', 'submit_word', {
+            'event_category': 'Game Interaction',
+            'event_label': 'Word Submission'
+        });
+    }
+    
+    const songInput = document.getElementById('songInput').value;
+    const inputInfo = getTrackInfo(songInput)
+    
+    if (guesses.includes(songInput)) {
+        showError("you've already guessed this song!")
+        document.getElementById('songInput').value = '';
+        document.getElementById('suggestions').style.display = 'none';
+    } else if (allTrackNames.includes(songInput)) {
+
         document.getElementById('songInput').value = '';
         document.getElementById('suggestions').style.display = 'none';
         addGuess(songInput);
         guesses.push(songInput);
-        updateGuessCounterDisplay(); // Update guess counter display
-        localStorage.setItem('guesses', JSON.stringify(guesses));
-
-    } else if (guesses.includes(songInput)) {
-        console.log("You have already guessed this song.");
-    } else {
-        console.log('Invalid song name. Please try again.');
+        updateGuessCounterDisplay();
+        localStorage.setItem(hardMode ? 'hardguesses' : 'guesses', JSON.stringify(guesses));
+    } 
+    else {
+        showError('Invalid song name!');
     }
+
+    if (guesses.length >= MAX_GUESSES && JSON.stringify(inputInfo) !== JSON.stringify(targetInfo)) {
+        consent = localStorage.getItem('cookieConsent')
+        if (consent && consent.analytics){
+            gtag('event', 'game_lose', {
+                'event_category': 'Game Outcome',
+                'event_label': 'Lose',
+                'game_mode': hardMode ? 'hard' : 'easy'
+            });
+        }
+        gameLost();
+    }
+    
 }
 
+function showError(message, seconds=2.5) {
+    // Create the error box if it doesn't exist
+    if (!document.querySelector('#errorBox')) {
+        const errorBox = document.createElement('div');
+        errorBox.id = 'errorBox';
+        document.body.appendChild(errorBox);
+    }
+
+    const errorBox = document.querySelector('#errorBox');
+    errorBox.textContent = message;
+
+    // Apply the slide-in animation
+    errorBox.style.animation = 'slideIn 0.5s ease-in-out forwards';
+
+    // Switch to the slide-out animation after 3 seconds
+    setTimeout(() => {
+        errorBox.style.animation = 'slideOut 0.5s ease-in-out forwards';
+        
+    }, seconds * 1000);
+    setTimeout(() => {
+        errorBox.textContent = '';
+    }, seconds * 1000 + 500)
+}
 
 function disableGameInput() {
+    // console.log('disabling game input')
     // Disable the input field
     const songInputField = document.getElementById('songInput');
     songInputField.disabled = true;
+    songInputField.style.display = 'none'
+
+    const inputUnderline = document.getElementById('underline')
+    inputUnderline.style.display = 'none'
 
     // Disable the submit button
     const submitButton = document.getElementById('submitBtn');
     submitButton.disabled = true;
+    submitButton.style.display = 'none'
+
+    const resultsButton = document.getElementById('results');
+    resultsButton.style.display = 'block'
+}
+
+function enableGameInput() {
+    // console.log('enabling game input')
+    // enable the input field
+    const songInputField = document.getElementById('songInput');
+    songInputField.disabled = false;
+    songInputField.style.display = 'block'
+
+    const inputUnderline = document.getElementById('underline')
+    inputUnderline.style.display = 'block'
+
+    // enable the submit button
+    const submitButton = document.getElementById('submitBtn');
+    submitButton.disabled = false;
+    submitButton.style.display = 'block'
+
+    const resultsButton = document.getElementById('results');
+    resultsButton.style.display = 'none'
 }
 
 
 function gameWon() {
+    consent = localStorage.getItem('cookieConsent')
+    if (consent && consent.analytics){
+        gtag('event', 'game_won', {
+            'event_category': 'Game Outcome',
+            'event_label': 'Win'
+        });
+    }
+    // console.log("GAME WOOOON! WOOO!")
     
     const today = new Date();
     const formattedToday = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0'); // Format YYYY-MM-DD
     
-    const lastGame = localStorage.getItem('lastGame')
+    const lastGame = localStorage.getItem(hardMode ? 'lastHardGame' : 'lastGame');
     if (!(lastGame && lastGame === formattedToday.toString())){
-        localStorage.setItem('lastGame', formattedToday)
+        localStorage.setItem( hardMode ? 'lastHardGame' : 'lastGame', formattedToday)
         localStorage.setItem('streak', parseInt(localStorage.getItem('streak') || 0) + 1);
         localStorage.setItem('correct', parseInt(localStorage.getItem('correct') || 0) + 1);
         localStorage.setItem('gamesPlayed', parseInt(localStorage.getItem('gamesPlayed') || 0) + 1);
@@ -168,31 +364,52 @@ function gameWon() {
     disableGameInput();
 
     
-    if (!gameWonCheck){
+    if (!gameWonCheck && !hardMode){
         gameWonCheck = true;
-        showWinModal();
+        if (!changingModes){
+            showWinModal();
+        }
+    } else if (!hardGameWonCheck && hardMode){
+        hardGameWonCheck = true;
+        if (!changingModes){
+            showWinModal();
+        }
     }
 }
 
 function gameLost() {
+
+    // console.log("Oh no! Game lost :(")
+    consent = localStorage.getItem('cookieConsent')
+    if (consent && consent.analytics){
+        gtag('event', 'game_lose', {
+            'event_category': 'Game Outcome',
+            'event_label': 'Lose'
+        });
+    }
+    
     disableGameInput();
     const today = new Date();
     const formattedToday = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0'); // Format YYYY-MM-DD
-    const lastGame = localStorage.getItem('lastGame')
+    const lastGame = localStorage.getItem( hardMode ? 'lastHardGame' : 'lastGame' )
     if (!(lastGame && lastGame === formattedToday.toString())){
-        localStorage.setItem('lastGame', formattedToday)
+        localStorage.setItem(hardMode ? 'lastHardGame' : 'lastGame', formattedToday)
         localStorage.setItem('streak', 0);
         localStorage.setItem('gamesPlayed', parseInt(localStorage.getItem('gamesPlayed') || 0) + 1);
     }
     
-    if (!gameLostCheck){
+    if (!gameLostCheck && !hardMode){
         gameLostCheck = true;
+        showLoseModal();
+    } else if (!hardGameLostCheck && hardMode){
+        hardGameLostCheck = true;
         showLoseModal();
     }
 }
 
 
 function addGuess(guess) {
+    
     const trackInfo = getTrackInfo(guess); // Assuming guess is the track name
     const correctness = compareToTarget(trackInfo);
 
@@ -218,6 +435,9 @@ function addGuess(guess) {
     img.style.width = '50px'; // Adjust size as needed
     img.style.height = 'auto';
     img.style.marginRight = '10px'; // Add some space between the image and the arrow
+    if (trackInfo.album_name.toLowerCase().includes('edition') || trackInfo.album_name.toLowerCase().includes('deluxe')){
+        img.classList.add('deluxe')
+    }
 
     let arrowSpan = document.createElement('span'); // Create a new span for the symbol
     arrowSpan.className = "arrow"; // Assign a base class for styling
@@ -262,6 +482,7 @@ function addGuess(guess) {
         cell.className = criteria.replace(" ", "-"); // Use className for styling based on the criteria
         cell.className += ' grid-cell'
         document.querySelector('.grid-table').appendChild(cell);
+        adjustBodyHeight()
     };
 
 
@@ -270,7 +491,7 @@ function addGuess(guess) {
     appendCorrectnessCell(correctness.trackLengthMatch, trackInfo.track_length);
 
     cell = document.createElement('div');
-    cell.textContent = trackInfo.features.join(', ') || 'no features';
+    cell.textContent = trackInfo.features.join(', ') || 'No features';
     cell.className = 'grid-cell ' + correctness.sharedFeatures;
 
     // Append the new row to the guess table
@@ -279,21 +500,36 @@ function addGuess(guess) {
     // Check for win or lose conditions
     if (JSON.stringify(trackInfo) === JSON.stringify(targetInfo)) {
         gameWon();
-    } else if (guesses.length >= MAX_GUESSES) {
+    } else if (guesses.length >= MAX_GUESSES && guesses[guesses.length - 1] === guess) {
         gameLost();
         disableGameInput();
     }
 }
 
+function adjustBodyHeight() {
+    const bodyContentHeight = document.body.scrollHeight;
+    const viewportHeight = window.innerHeight;
 
+    if (bodyContentHeight > viewportHeight) {
+        document.body.classList.remove("viewport-height");
+        document.body.classList.add("content-height");
+    } else {
+        document.body.classList.remove("content-height");
+        document.body.classList.add("viewport-height");
+    }
+}
 
 document.addEventListener('DOMContentLoaded', function() {
-    fetchAlbums().then(trackNames => {
+    fetchAlbums(hardMode ? 'hardSongs.json' : 'songs.json').then(trackNames => {
         allTrackNames = trackNames;
         pickRandomSong();
-        checkAndUpdateDate(); // Call this function to check the date and load or reset guesses
+        checkAndUpdateDate();
         updateGuessCounterDisplay();
     });
+    adjustBodyHeight();
+
+    // Adjust the height whenever the window is resized
+    window.addEventListener("resize", adjustBodyHeight);
 
     // Add event listener to the submit button
     const submitBtn = document.getElementById('submitBtn');
@@ -311,12 +547,13 @@ function checkAndUpdateDate() {
         loadGuesses(); // Load guesses from localStorage if it's the same day
     } else {
         localStorage.setItem('guesses', JSON.stringify([])); // Reset guesses
+        localStorage.setItem('hardguesses', JSON.stringify([])); // Reset hard mode guesses
         localStorage.setItem('lastVisit', formattedToday); // Update the last visit date
     }
 }
 
 function loadGuesses() {
-    guesses = JSON.parse(localStorage.getItem('guesses')) || [];
+    guesses = JSON.parse((localStorage.getItem((hardMode ? 'hard' : '') + 'guesses') || '[]'));
     guesses.forEach(guess => addGuess(guess));
 }
 
@@ -325,8 +562,9 @@ function loadGuesses() {
 let albumsData = [];
 
 // Adjust the fetchAlbums function to also set albumsData
-function fetchAlbums() {
-    return fetch('songs.json') // Start the fetch operation
+function fetchAlbums(file) {
+    // console.log('getting', file)
+    return fetch(file) // Start the fetch operation
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -335,6 +573,7 @@ function fetchAlbums() {
         })
         .then(albums => {
             albumsData = albums; // Set the global albumsData variable
+            populateAlbumsDiv(albumsData)
             const trackNames = getAllTrackNames(albums); // Process the albums to get track names
             return trackNames; // Return the track names for the next .then()
         })
@@ -342,6 +581,28 @@ function fetchAlbums() {
             console.error('There has been a problem with your fetch operation:', error);
         });
 }
+
+function populateAlbumsDiv(albumsData) {
+    const albumsContainer = document.getElementById('albumContainer');
+    albumsContainer.innerHTML = '';
+    // console.log(albumsData)
+    albumsData.forEach((album, index) => {
+        const img = document.createElement('img');
+        img.className = 'album';
+        img.src = album.img_url;
+        img.alt = album.album_name;
+        if (album.album_name.toLowerCase().includes('edition') || album.album_name.toLowerCase().includes('deluxe')){
+            img.classList.add('deluxe')
+        }
+
+        // Apply the wave animation with a dynamic delay
+        img.style.animation = 'wave 2s infinite';
+        img.style.animationDelay = `${index * 0.2}s`;
+
+        albumsContainer.appendChild(img);
+    });
+}
+
 
 // Assuming you have a function getAllTrackNames defined like in the previous example
 function getAllTrackNames(albums) {
@@ -359,37 +620,41 @@ let allTrackNames = []; // This will be filled after fetching albums
 
 document.getElementById('songInput').addEventListener('input', function() {
     const inputVal = this.value.toLowerCase();
-    // Check if inputVal is not empty
     if (inputVal.trim() !== '') {
-        const filteredTracks = allTrackNames.filter(name => name.toLowerCase().startsWith(inputVal)).slice(0, 5); // Limit to 5 suggestions
+        const filteredTracks = allTrackNames.filter(name => name.toLowerCase().startsWith(inputVal)).slice(0, 5);
         displaySuggestions(filteredTracks);
     } else {
-        // Clear suggestions if the input is empty
         displaySuggestions([]);
     }
 });
 
 function displaySuggestions(trackNames) {
     const suggestionsBox = document.getElementById('suggestions');
-    suggestionsBox.innerHTML = ''; // Clear previous suggestions
-    
+    suggestionsBox.innerHTML = '';
     if (trackNames.length > 0) {
         document.getElementById('suggestions').style.display = 'block';
         const suggestionsHTML = trackNames.map(name => `<div class="suggestion-item">${name}</div>`).join('');
         suggestionsBox.innerHTML = suggestionsHTML;
         
-        // Add click event to fill the search box with the selected suggestion
         document.querySelectorAll('.suggestion-item').forEach(item => {
             item.addEventListener('click', function() {
                 document.getElementById('songInput').value = this.innerText;
-                displaySuggestions([])
-                suggestionsBox.innerHTML = ''; // Clear suggestions
+                displaySuggestions([]);
             });
         });
-    } else{
+    } else {
         document.getElementById('suggestions').style.display = 'none';
     }
 }
+
+document.addEventListener('click', function(e) {
+    const searchInput = document.getElementById('songInput');
+    const suggestionsBox = document.getElementById('suggestions');
+    if (!searchInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
+        suggestionsBox.style.display = 'none';
+    }
+});
+
 
 
 // Function to get details about a track
@@ -452,10 +717,11 @@ function compareToTarget(trackInfo) {
     if (trackNumberDifference === 0) {
         comparisonResults.trackNumberMatch = "correct";
     } else if (trackNumberDifference === 1 || trackNumberDifference === 2) {
-        comparisonResults.trackNumberMatch = targetInfo.track_number > trackInfo.track_number ? "before close" : "after close";
+        comparisonResults.trackNumberMatch = (trackNumOrder && targetInfo.track_number < trackInfo.track_number) || (!trackNumOrder && targetInfo.track_number > trackInfo.track_number) ? "before close" : "after close";
     } else {
-        comparisonResults.trackNumberMatch = targetInfo.track_number > trackInfo.track_number ? "before" : "after";
+        comparisonResults.trackNumberMatch = (trackNumOrder && targetInfo.track_number < trackInfo.track_number) || (!trackNumOrder && targetInfo.track_number > trackInfo.track_number) ? "before" : "after";
     }
+    
 
     // Track length comparison
     const targetTrackLengthSeconds = trackLengthToSeconds(targetInfo.track_length);
@@ -463,10 +729,11 @@ function compareToTarget(trackInfo) {
     const trackLengthDifference = Math.abs(targetTrackLengthSeconds - comparedTrackLengthSeconds);
     if (trackLengthDifference === 0) {
         comparisonResults.trackLengthMatch = "correct";
-    } else if (trackLengthDifference <= 20) {
-        comparisonResults.trackLengthMatch = targetTrackLengthSeconds > comparedTrackLengthSeconds ? "before close" : "after close";
+    } else if (trackLengthDifference <= 30) {
+
+        comparisonResults.trackLengthMatch = (targetTrackLengthSeconds > comparedTrackLengthSeconds) ? "before close" : "after close";
     } else {
-        comparisonResults.trackLengthMatch = targetTrackLengthSeconds > comparedTrackLengthSeconds ? "before" : "after";
+        comparisonResults.trackLengthMatch = (targetTrackLengthSeconds > comparedTrackLengthSeconds) ? "before" : "after";
     }
 
     // Checking shared features
@@ -530,12 +797,12 @@ function generateEmojiString() {
 function shareContent() {
     const emojis = generateEmojiString();
 
-    const startDate = new Date('2023-08-23');
+    const startDate = new Date('2024-04-10'); 
     const currentDate = new Date();
     const timeDiff = currentDate - startDate;
     const dayNumber = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
 
-    const textToShare = `Yachtle Day ${dayNumber}: ${guesses.length}/8\n\n${emojis}\nwww.yachtle.xyz ⛵`;
+    const textToShare = `Yachtle.xyz ${dayNumber}${hardMode ? ' Hard Mode' : ''}: ${guesses.length}/8\n\n${emojis}\nwww.Yachtle.xyz `;
 
     // Assuming desktops are less likely to be touch-enabled, use this as a heuristic
     // This is not a perfect check, as some desktops are touch-enabled
@@ -546,10 +813,11 @@ function shareContent() {
             navigator.share({
                 text: textToShare,
             })
-            .catch((error) => console.log('Error sharing content:', error));
+            .catch((error) => showError('Error sharing content...'));
         } else {
             // Fallback if Web Share API is not supported
             copyToClipboard(textToShare);
+            
         }
     } else {
         // Likely a desktop, so directly copy to clipboard
@@ -562,6 +830,7 @@ function copyToClipboard(text) {
     .catch((error) => {
         console.error('Error copying to clipboard:', error);
     });
+    showError("Copied to clipboard!")
 }
 
 

@@ -1,0 +1,140 @@
+@font-face {
+    font-family: 'Main';
+    src: url('../fonts/Main.woff2') format('woff2'),
+        url('../fonts/Main.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Default';
+    src: url('../fonts/Default.woff2') format('woff2'),
+        url('../fonts/Default.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+.title{
+    font-family: 'Main';
+}
+
+.backButton{
+    text-decoration: none;
+    color: white;
+    font-size: 40px;
+    position: absolute;
+    top: 0px;
+    left: 10px;
+}
+
+h1{
+    color: white;
+    font-weight: normal;
+}
+
+html{
+    font-family: 'Default';
+}
+
+body{
+    background-color: rgb(40, 40, 40);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 100vh;
+}
+
+.background {
+    background-image: 
+        radial-gradient(circle at 75% 25%, #be2e1e, transparent 50%),
+        radial-gradient(circle at 20% 35%, #632406, transparent 50%),
+        radial-gradient(circle at 50% 60%, #e09c61, transparent 50%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.card{
+    padding-block: 40px;
+    width: 350px;
+    height: 200px;
+    background-color: #D9D9D9;
+    color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    border-radius: 24px;
+
+    background-color: rgb(172, 172, 172, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid #888;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.card .form-group{
+    margin-right: 50px;
+    margin-top: 15px;
+}
+
+.card p{
+    text-align: right;
+}
+
+.form-group{
+    width: fit-content;
+    margin-bottom: 10px;
+}
+
+.card input, textarea{
+    font-family: 'Default';
+    color: white;
+    width: 150px;
+    border: none;
+    outline: none;
+    background-color: rgba(0, 0, 0, 0);
+    border-bottom: 2px solid rgb(255, 255, 255);
+    resize: none;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: rgba(255, 255, 255, 0.4);
+    color: white;
+    border: 2px solid white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-button:hover{
+    background-color: white;
+    color: black;
+}
+
+#contact-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#message{
+    font-family: 'Default';
+    height: 30px;
+    overflow: hidden;
+    width: 150px;
+}

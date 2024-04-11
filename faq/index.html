@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>How to play Yachtle.xyz</title>
+        <link rel="icon" type="image/x-icon" href="tswizzle.ico">
+        <link rel="stylesheet" href="faq.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        <div class="background"></div>
+        <a href="/" class="backButton">&lt;</a>
+        <h1>Yachtle.xyz</h1>
+        <h2>FAQ</h2>
+
+        <button class="accordion">What is Yachtle.xyz?<i class="fa fa-caret-down"></i></button>
+        <div class="panel">
+            <p>Yachtle.xyz is a Wordle-inspired game tailored for Lil Yachty fans. It challenges players to guess Lil Yachty songs within a certain number of guesses, providing clues for each attempt.</p>
+        </div>
+
+        <button class="accordion">How do I play Yachtle.xyz?<i class="fa fa-caret-down"></i></button>
+        <div class="panel">
+            <p>Enter a Lil Yachty song title in the input field and submit your guess. The game provides feedback to guide you closer to the correct song.</p>
+        </div>
+
+        <button class="accordion">What do the colors mean in Yachtle.xyz?<i class="fa fa-caret-down"></i></button>
+        <div class="panel">
+            <p>Green indicates a correct match. Yellow suggests you're close, with specifics for album, track number, track length, and featured artists.</p>
+        </div>
+
+        <button class="accordion">Can I play Yachtle.xyz on my mobile device?<i class="fa fa-caret-down"></i></button>
+        <div class="panel">
+            <p>Yes, Yachtle.xyz is designed to be mobile-friendly and can be played on any device through a web browser!</p>
+        </div>
+
+        <button class="accordion">What is Hard Mode?<i class="fa fa-caret-down"></i></button>
+        <div class="panel">
+            <p>Hard Mode includes all Deluxe songs, increasing the challenge for experienced fans.</p>
+        </div>
+
+        <button class="accordion">How can I share my Yachtle.xyz results?<i class="fa fa-caret-down"></i></button>
+        <div class="panel">
+            <p>After completing a game, click the "Share your Results" button to generate a summary of your game that can be shared on social media or with friends.</p>
+        </div>
+
+        <button class="accordion">What happens if I guess the correct song?<i class="fa fa-caret-down"></i></button>
+        <div class="panel">
+            <p>If you guess correctly, a win modal will appear, congratulating you and showing your game statistics, including your streak and total games won.</p>
+        </div>
+        
+        <button class="accordion">Why does Yachtle.xyz use ads?<i class="fa fa-caret-down"></i></button>
+        <div class="panel">
+            <p>Ads support the ongoing development and hosting of Yachtle.xyz, allowing the game to remain free for all players.</p>
+        </div>
+
+        <button class="accordion">Is Yachtle.xyz affiliated with Lil Yachty?<i class="fa fa-caret-down"></i></button>
+        <div class="panel">
+            <p>No, Yachtle.xyz is a fan-made game and is not officially affiliated with Lil Yachty or their record labels.</p>
+        </div>
+
+        <script>
+            var acc = document.getElementsByClassName("accordion");
+            var i;
+
+            for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                    panel.style.maxHeight = '0px';
+                    setTimeout(function(){
+                        panel.style.display = "none";
+                    }, 200);
+                } else {
+                    panel.style.display = "block";
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                } 
+                // Rotate arrow icon logic (ensure you have the icons available or adjust accordingly)
+                var icon = this.querySelector(".fa");
+                if (icon) {
+                    icon.style.transform = icon.style.transform === "rotate(180deg)" ? "rotate(0deg)" : "rotate(180deg)";
+                }
+            });
+            }
+        </script>
+    </body>
+</html>

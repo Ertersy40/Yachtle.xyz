@@ -3,58 +3,114 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <title>Yachtle - Wordle for lil Yachty!</title>
+        <title>Yachtle.xyz - Wordle for Lil Yachty!</title>
+        <meta name="description" content="The ultimate Wordle challenge for Lil Yachty fans! Unravel Lil Yachtyr's discography as you guess songs, album clues, and share with friends!">
         <link rel="stylesheet" href="style.css">
-        <link rel="icon" type="image/x-icon" href="/boat.ico">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <meta name="google-adsense-account" content="ca-pub-9512385908704001">
+        <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9512385908704001"
+     crossorigin="anonymous"></script> -->
+     
+     
     </head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-TCKG7Q93BE"></script>
+    
     <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-TCKG7Q93BE');
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    
+        gtag('config', 'G-TCKG7Q93BE');
     </script>
     <body>
+        <div class="background">
+            <div class="image-layer easy" style="opacity: 1;"></div>
+            <div class="image-layer hard" style="opacity: 0;"></div>
+        </div>
+        
         <!-- Top Buttons -->
         <div class="topButtons">
             <button onclick="showHelpModal()">?</button>
+            <button id="settingsButton" onclick="showSettingsModal()"><i class="fa fa-gear" style="font-size:28px;"></i></button>
         </div>
-        <div class="contentContainer">
 
+        <!-- banner ad -->
+        <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-9512385908704001"
+            data-ad-slot="6736701025"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+        <div class="contentContainer">
+            <!-- <span class="xyz">.xyz</span> -->
+            
             <h1>Yachtle.xyz</h1>
+            <div id="albumContainer"></div>
             <div class="search">
                 <input type="search" id="songInput" placeholder="Enter a Song" autocomplete="off" />
+                <div id="underline"></div>
                 <div id="suggestions" style="position: absolute; background: white; border: 1px solid #ddd;"></div>
             </div>
-
-            <button id="submitBtn">submit</button>
-            <div id="guessCounter">Guesses: 0/8</div>
-
+            <button id="submitBtn"><p>Submit</p></button>
+            <button id="results" onclick="showResults()">Share your Results</button>
+            <div id="guessCounter"><p id="guesses">Guess: 0/8</p></div>
+            
             <div class="grid-table">
                 <div class="grid-header">Track Name</div>
                 <div class="grid-header">Album</div>
                 <div class="grid-header">Track Number</div>
                 <div class="grid-header">Track Length</div>
                 <div class="grid-header">Features</div>
-                
-                <tbody class="guessTableBody"></tbody>
             </div>
             
             <!-- Help Modal -->
             <div id="helpModal" class="modal" style="display:none;">
                 <div class="modal-content">
                     <span class="closeModal" onclick="closeModal()">&times;</span>
-                    <p>Welcome to Yachtle.</p>
+                    <p>Welcome to Yachtle.xyz!</p>
                     <ul>
-                        <li>You have 8 guesses to get the correct Lil Yachty song</li>
+                        <li>You have 8 guesses to get the correct Lil Yachty song.</li>
                         <li><span class="greenText">Green</span> in any column means a complete match</li>
                         <li><span class="yellowText">Yellow</span> in the <b>album</b> or <b>track number</b> column indicates that this attribute is <b>within 2</b> (albums or tracks), with an arrow hinting if it is higher ( ↑ ) or lower ( ↓ ).</li>
                         <li><span class="yellowText">Yellow</span> in the <b>track length</b> column indicates that the song length is within <b>30 seconds</b>, with an arrow hinting if it is higher ( ↑ ) or lower ( ↓ ).</li>
                         <li><span class="yellowText">Yellow</span> in the <b>features</b> column indicates that <b>one</b> or more of the <b>featured artists</b> is correct.</li>
                     </ul>
                     <button onclick="closeModal()">Start</button>
+                </div>
+            </div>
+            
+            <!-- Settings Modal -->
+            <div id="settingsModal" class="modal" style="display:none;">
+                <div class="modal-content">
+                    <span class="closeModal" onclick="closeModal()">&times;</span>
+                    <p><b>Settings</b></p>
+                    <div class="option">
+                        <p>Hard Mode</p>
+                        <p class="optionDescription">All Deluxe songs included</p>
+                        <label class="switch">
+                            <input type="checkbox" id="HardSwitch">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="option">
+                        <p>Track No. Arrow Direction</p>
+                        <p class="optionDescription">Change when track number arrows point up or down</p>
+                        <label class="switch">
+                            <input type="checkbox" id="TrackNumSwitch">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="smallLinks">
+                        <!-- <a href="blog.html"><p>Blosg</p></a> -->
+                        <a href="./faq/"><p>FAQ</p></a>
+                        <a href="./privacy-policy/"><p>Privacy Policy</p></a>
+                        <a href="./contact-us/"><p>Contact Us</p></a>
+                    </div>
                 </div>
             </div>
             
@@ -70,16 +126,18 @@
                             <p id="streakWin">0</p>
                         </div>
                         <div class="stat">
-                            <p>Correct:</p>
+                            <p>Games Won:</p>
                             <p id="correctWin">0</p>
                         </div>
                         <div class="stat">
-                            <p>Games:</p>
+                            <p>Games Played:</p>
                             <p id="gamesWin">0</p>
                         </div>
                     </div>
-
-                    <button onclick="shareContent()">Share Your Score</button>
+                    
+                    <button class="ShareButton" onclick="shareContent()">Share Your Score</button>
+                    <div id="hardModeNotifier"></div>
+                    <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Me!', '#d94a6e', 'Y8Y1V7SR9');kofiwidget2.draw();</script>
                     
                 </div>
             </div>
@@ -97,20 +155,74 @@
                             <p id="streakLose">0</p>
                         </div>
                         <div class="stat">
-                            <p>Correct:</p>
+                            <p>Games Won:</p>
                             <p id="correctLose">0</p>
                         </div>
                         <div class="stat">
-                            <p>Games:</p>
+                            <p>Games Played:</p>
                             <p id="gamesLose">0</p>
                         </div>
                     </div>
-                    <button onclick="shareContent()">Share Your Score</button>
+                    <button class="ShareButton" onclick="shareContent()">Share Your Score</button>
+                    <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Me!', '#d94a6e', 'Y8Y1V7SR9');kofiwidget2.draw();</script>
                 </div>
             </div>
+            <div id="cookieConsentBanner" class="cookie-consent-banner">
+                <p>🍪 Yachtle.xyz uses cookies to enhance site navigation, analyze site usage, and assist in our marketing efforts. By clicking 'Accept All,' you consent to the use of All cookies. Alternatively, you can click 'Cookie Settings' to manage your preferences.</p>
+                <div class="cookieButtons">
+                    <button id="acceptAllCookies">Accept All</button>
+                    <button id="cookieSettings">Cookie Settings</button>
+                </div>
+            </div>
+            <div id="cookieSettingsModal" class="cookie-settings-modal">
+                <p>Customize Your Cookie Preferences.<br/>Your privacy is important to us. Choose how you wish to consent to the use of cookies categorized below. Note: Blocking some types of cookies may impact your experience on our site and the services we are able to offer.</p>
+                    <div className="switches">
+                        <div class="cookieDescription">
+                            <label class="switch">
+                                <input type="checkbox" id="AnalyticsSwitch" checked=true>
+                                <span class="slider round"></span>
+                            </label>
+                            <p>Analytical Cookies</p>
+                        </div>
+                        <div class="cookieDescription">
+                            <label class="switch">
+                                <input type="checkbox" id="AdvertisingSwitch" checked=true>
+                                <span class="slider round"></span>
+                            </label>
+                            <p>Advertising Cookies</p>
+                        </div>
+                        <p>Find out more in our cookies policy page</p>
+                    </div>
+                    <div class="cookieButtons">
+                        <button id="acceptAllCookieSettings">Accept All</button>
+                        <button id="saveCookieSettings">Save Settings</button>
+                    </div>
+            </div>
+            
         </div>
+        <a href="https://x.com/Ertersy_builds" rel="noopener noreferrer" target="_blank">
+            <div class="xLink">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/X_logo_2023_original.svg/600px-X_logo_2023_original.svg.png" class="xLogo" alt="X Logo" />
+                <p>@Ertersy_builds</p>
+            </div>
+        </a>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9512385908704001"
+            crossorigin="anonymous"></script>
+        <!-- banner ad -->
+        <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-9512385908704001"
+            data-ad-slot="6736701025"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+        <script src="cookies.js"></script>
         <script src="app.js"></script>
+        <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+        
     </body>
-    <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
-    <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Us', '#d94a6e', 'Y8Y1V7SR9');kofiwidget2.draw();</script>
-</html>
+    
+    </html>
+    

@@ -1,0 +1,131 @@
+@font-face {
+    font-family: 'Main';
+    src: url('../fonts/Main.woff2') format('woff2'),
+        url('../fonts/Main.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Default';
+    src: url('../fonts/Default.woff2') format('woff2'),
+        url('../fonts/Default.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+html {
+    overflow: -moz-scrollbars-vertical; 
+    overflow-y: scroll;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: rgb(40, 40, 40);
+    position: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    color: white; /* Assuming you want the text color to be white for readability */
+}
+
+.backButton{
+    text-decoration: none;
+    color: white;
+    font-size: 40px;
+    position: absolute;
+    top: 0px;
+    left: 10px;
+}
+
+h1 {
+    font-weight: normal;
+    font-family: 'Main';
+    color: white;
+    text-align: center;
+    font-size: 60px;
+    margin-bottom: 0px;
+}
+h2{
+    font-family: 'Default';
+    font-size: 40px;
+    margin: 0px;
+    margin-bottom: 21px;
+}
+
+.background {
+    background-image: 
+    radial-gradient(circle at 75% 25%, #be2e1e, transparent 50%),
+    radial-gradient(circle at 20% 35%, #632406, transparent 50%),
+    radial-gradient(circle at 50% 60%, #e09c61, transparent 50%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.accordion {
+    font-family: 'Default';
+    background-color: #f9f9f9;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 70%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: background-color 0.4s ease, transform 0.4s ease;
+    border-radius: 5px; /* Optional: for rounded corners */
+
+
+
+    background-color: rgb(172, 172, 172, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid #888;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.active, .accordion:hover {
+    background-color: #cccccc6a;
+}
+
+.panel {
+    font-family: 'Default';
+    padding: 0 18px;
+    display: none;
+    width: calc(70% - 36px);
+    background-color: white;
+    overflow: hidden;
+    max-height: 0px;
+    transition: max-height 0.2s ease-out;
+    color: white; /* Text color for content */
+
+    background-color: rgba(222, 222, 222, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 15px;
+    border: 1px solid #888;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Rotate arrow */
+.fa {
+    float: right;
+    transition: transform 0.4s ease;
+}

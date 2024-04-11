@@ -1,5 +1,123 @@
 [
     {
+        "album_name": "Hightop Shoes",
+        "img_url": "https://i.scdn.co/image/ab67616d0000b2737793d264579510767547ca22",
+        "tracks": [
+            {
+                "track_name": "Hightop Shoes",
+                "track_length": "2:54",
+                "features": [
+                    "Lil Keed",
+                    "Zaytoven"
+                ]
+            },
+            {
+                "track_name": "A-Team (You Ain't Safe)",
+                "track_length": "3:28",
+                "features": [
+                    "Lil Keed",
+                    "Zaytoven"
+                ]
+            },
+            {
+                "track_name": "Accomplishments",
+                "track_length": "2:41",
+                "features": [
+                    "Lil Keed",
+                    "Zaytoven"
+                ]
+            }
+        ]
+    },
+    {
+        "album_name": "BIRTHDAY MIX 6",
+        "img_url": "https://i.scdn.co/image/ab67616d0000b2737d66bb9b82719a2b2c2f63c5",
+        "tracks": [
+            {
+                "track_name": "Virgo World",
+                "track_length": "2:14",
+                "features": [
+                    "Lil Tecca"
+                ]
+            },
+            {
+                "track_name": "Sprinkle",
+                "track_length": "2:01",
+                "features": []
+            },
+            {
+                "track_name": "Solid",
+                "track_length": "2:40",
+                "features": [
+                    "SoFaygo"
+                ]
+            },
+            {
+                "track_name": "Three Six Talk",
+                "track_length": "3:03",
+                "features": [
+                    "Dc2trill",
+                    "Draft Day"
+                ]
+            },
+            {
+                "track_name": "Lord of the Beans",
+                "track_length": "2:29",
+                "features": [
+                    "Dc2trill"
+                ]
+            },
+            {
+                "track_name": "Faizon",
+                "track_length": "2:28",
+                "features": []
+            },
+            {
+                "track_name": "Lexy Sove",
+                "track_length": "2:52",
+                "features": []
+            },
+            {
+                "track_name": "40/40",
+                "track_length": "1:56",
+                "features": []
+            },
+            {
+                "track_name": "Love Music",
+                "track_length": "2:57",
+                "features": []
+            }
+        ]
+    },
+    {
+        "album_name": "The Secret Recipe",
+        "img_url": "https://i.scdn.co/image/ab67616d0000b27357eb4cff526a104ec4dbf8d5",
+        "tracks": [
+            {
+                "track_name": "The Secret Recipe",
+                "track_length": "4:08",
+                "features": [
+                    "J. Cole"
+                ]
+            },
+            {
+                "track_name": "TESLA",
+                "track_length": "2:44",
+                "features": []
+            },
+            {
+                "track_name": "Slide",
+                "track_length": "2:29",
+                "features": []
+            },
+            {
+                "track_name": "SOLO STEPPIN CRETE BOY",
+                "track_length": "2:29",
+                "features": []
+            }
+        ]
+    },
+    {
         "album_name": "Lil Boat",
         "img_url": "https://i.scdn.co/image/ab67616d0000b27314d1a203158bed18a4ea7375",
         "tracks": [

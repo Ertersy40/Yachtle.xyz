@@ -1,18 +1,45 @@
+@font-face {
+    font-family: 'Main';
+    src: url('./fonts/Main.woff2') format('woff2'),
+        url('./fonts/Main.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Heading';
+    src: url('./fonts/Heading.woff2') format('woff2'),
+        url('./fonts/Heading.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Default';
+    src: url('./fonts/Default.woff2') format('woff2'),
+        url('./fonts/Default.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 :root {
     --background-color: rgb(40, 40, 40);
     --text-color: white;
     --text-color2: black;
-    --placeholder-text: rgb(194, 194, 194);
+    --placeholder-text: rgb(255, 255, 255, 0.6);
 
-    --button-color: rgb(156, 156, 156);
-    --button-hover: rgb(129, 129, 129);
+    --button-color: rgba(255, 255, 255, 0.4);
+    --button-hover: #ffffff;
 
     --input-background: rgb(65, 65, 65);
 
     --suggestion-color: #f2f2f2;
     --suggestion-hover: #f2f2f2;
     
-    --modal-color: black;
+    --modal-color: rgb(172, 172, 172, 0.4);
     --outline-color: #888;
 
     --correct: #56c14a;
@@ -21,36 +48,106 @@
     --cell-color: rgba(255, 255, 255, 0.188);
 }
 
-
 /* General body styling */
 body {
-    padding-inline: 5%;
+    /* box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border: 10px solid #7e2622; */
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     font-family: 'Arial', sans-serif;
     margin: 0;
-    padding-block: 10%;
-    /* background-image: radial-gradient(at top right, rgba(255,255,255,0.15) 0%, var(--background-color) 70%); */
-    background-color: var(--background-color); /* Fallback color */
+    width: 98.75vw;
 }
 
+/* Class when body content fits within the viewport */
+.viewport-height {
+    height: 100vh;
+}
+
+/* Class when body content exceeds the viewport */
+.content-height {
+    height: 100%; /* Height based on content */
+    padding-bottom: 100px;
+}
+
+.viewport-height, .content-height {
+    background-color: var(--background-color); /* Fallback color */
+    background-repeat: no-repeat;
+}
+
+
+.background {
+    position: fixed; /* Use fixed or absolute depending on your needs */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Keep the background behind other content */
+}
+  
+.image-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.5s ease;
+    opacity: 0; /* Start invisible */
+}
+
+/* Hard mode */
+.hard{
+    background-image: 
+    radial-gradient(circle at 75% 25%, #be2e1e, transparent 50%),
+    radial-gradient(circle at 20% 35%, #632406, transparent 50%),
+    radial-gradient(circle at 50% 60%, #e09c61, transparent 50%);
+}
+
+/* Easy mode */
+.easy{
+    background-image: 
+    radial-gradient(circle at 20% 35%, #de9c60, transparent 50%), 
+    radial-gradient(circle at 75% 25%, #e3deab, transparent 50%), 
+    radial-gradient(circle at 50% 60%, #4f210f, transparent 50%);
+    opacity: 1;
+}
+
+.hard, .easy {
+    background-size: cover;
+}
+
+
 .topButtons{
-    z-index: 100;
+    display: flex;
+    z-index: 1;
     position: fixed;
     top: 20px;
     right: 10px;
 }
+
 .topButtons button{
-    height: 40px;
-    width: 35px;
-    border-radius: 30px;
-    background-color: var(--background-color);
-    border: 3px solid var(--button-color);
+    margin-right: 10px;
+    height: 57px;
+    width: 49px;
+    border-radius: 24px;
+    background-color: var(--button-color);
+    border: 3px solid white;
+}
+
+#settingsButton i{
+    transition: transform .2s ease-in-out;
+}
+#settingsButton i:hover{
+    transform: rotate(45deg) scale(1.1);
 }
 
 .contentContainer{
+    /* background-color: rgba(255, 255, 255, 0.051); */
+    border-radius: 20px;
+    /* backdrop-filter: blur(10px); */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -58,25 +155,105 @@ body {
     max-width: 800px;
 }
 
+@keyframes slideIn {
+    from { top: -100px; }
+    to { top: 20px; }
+}
+
+@keyframes slideOut {
+    from { top: 20px; }
+    to { top: -100px; }
+}
+
+#errorBox {
+    position: fixed;
+    top: -50px; /* Start out of view */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--close);
+    color: var(--text-color2);
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    animation: slideOut 0.5s ease-in-out forwards;
+}
+
 
 /* Styling for the main heading */
 h1 {
+    font-weight: normal;
+    font-family: 'Main';
     color: var(--text-color);
     text-align: center;
-    font-size: 70px;
+    font-size: 60px;
+    margin-bottom: 35px;
+}
+
+.xyz{
+    font-size: 40px;
+}
+
+#albumContainer{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 35px;
+}
+
+.album{
+    margin-top: 20px;
+    width: 70px;
+    height: auto;
+    margin-right: 10px;
+    animation-timing-function: ease-in-out;
+}
+
+.deluxe{
+    border: 3px solid gold;
+    /* border-image: linear-gradient(#f3e15a, #ac7809) 30;
+    border-width: 3px;
+    border-style: solid; */
+}
+
+@keyframes wave {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+}
+
+input[type="search"], textarea, .suggestion-item, .grid-header, #submitBtn, #guessCounter, p, .modal, button, #errorBox {
+    font-family: 'Heading';
+    font-size: larger;
+}
+.grid-cell, p, .modal, button, #errorBox, li {
+    font-family: 'Default';
+    font-size: larger;
 }
 
 /* Input field styling */
 input[type="search"], textarea{
+    font-family: 'Heading';
     text-align: center;
-    font-size: 16px;
-    background-color: var(--input-background);
+    background-color: transparent;
     color: var(--text-color);
     width: 100%;
     padding: 10px;
     margin: 10px 0;
-    border: 1px solid var(--outline-color);
-    border-radius: 5px;
+    border: none;
+    
+    outline: none;
+}
+
+#underline {
+    margin-top: -15px;
+    background:rgb(255, 255, 255);
+    height: 2px;
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
 
 ::placeholder {
@@ -85,17 +262,19 @@ input[type="search"], textarea{
 
 /* Suggestion box styling */
 .search{
-    width: 100%;
+    width: 50%;
+    min-width: 250px;
 }
 
 #suggestions {
-    translate: 0px -10px;
+    border-radius: 17px;
+    translate: 0px -19px;
     display: none;
     z-index: 1;
-    max-height: 200px;
     overflow-y: auto;
     text-align: center;
-    width: 100%;
+    width: 50%;
+    min-width: 250px;
 }
 
 .suggestion-item {
@@ -115,18 +294,38 @@ button {
     margin: 10px 0;
     background-color: var(--button-color);
     color: var(--text-color);
-    border: none;
+    border: 2px solid white;
     border-radius: 5px;
     cursor: pointer;
 }
 
 button:hover {
     background-color: var(--button-hover);
+    color: var(--text-color2);
 }
 
-#submitBtn{
-    background-color: (--correct);
-    max-width: 250px;
+#submitBtn, #results{
+    height: 42px;
+    outline: 2px solid white;
+    background-color: rgba(255, 255, 255, 0.3);
+    max-width: 130px;
+    padding-block: 0px;
+    border-radius: 15px;
+}
+
+#results{
+    display: none;
+    max-width: 200px;
+}
+
+#submitBtn p, #results p{
+    margin: 0px;
+    /* test */
+}
+
+#submitBtn:hover, #results:hover{
+    background-color: white;
+    color: rgb(0, 0, 0);
 }
 
 #guessCounter{
@@ -135,6 +334,10 @@ button:hover {
     font-size: 20px;
     margin-bottom: 10px;
 }
+.alternate-font {
+    font-family: sans-serif; /* Replace 'YourAlternateFont' with the actual font name */
+}
+
 
 /* Table styling */
 .grid-table {
@@ -188,26 +391,7 @@ button:hover {
     vertical-align: middle; /* This may not be necessary with flexbox alignment */
 }
 
-@media (max-width: 768px) {
-    .grid-header{
-        font-size: smaller;
-    }
-    .grid-cell {
-        padding: 4px;
-        font-size: smaller;
-    }
-}
 
-/* Media query for very small screens */
-@media (max-width: 480px) {
-    .grid-header{
-        font-size: x-small;
-    }
-    .grid-cell {
-        padding: 2px;
-        font-size: x-small;
-    }
-}
 
 /* Correctness indicators */
 .correct {
@@ -236,6 +420,7 @@ button:hover {
 }
 
 li{
+    font-size: large;
     margin-block: 10px;
 }
 
@@ -246,7 +431,7 @@ li{
     align-items: center;
     justify-content: center;
     position: fixed;
-    z-index: 1;
+    z-index: 101;
     left: 0;
     top: 0;
     width: 100%;
@@ -259,6 +444,9 @@ li{
 .modal-content {
     color: var(--text-color);
     background-color: var(--modal-color);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 15px;
     padding: 20px;
     border: 1px solid var(--outline-color);
     width: 80%;
@@ -267,6 +455,10 @@ li{
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.modal-content p{
+    margin-bottom: -3px;
 }
 
 .closeModal{
@@ -294,17 +486,37 @@ li{
     cursor: pointer;
 }
 
+.smallLinks{
+    width: 70%;
+    min-width: 200px;
+    display: flex;
+    justify-content: space-evenly;
+    text-wrap: nowrap;
+}
+
+.smallLinks a{
+    color: rgb(199, 199, 199)
+}
+.smallLinks a:hover{
+    color: white;
+}
+.smallLinks a p{
+    font-size: 12px;
+}
+
 .correctSong{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     width: 80%;
-    margin-bottom: 20px;
+    margin-top: 25px;
+    margin-bottom: 10px;
 }
 
 .correctSong p{
-    margin-block: 5px;
+    font-family: 'Heading';
+    margin-top: 18px;
 }
 
 .stats{
@@ -315,7 +527,6 @@ li{
 
 .stat{
     padding: 3px;
-    background-color: var(--input-background);
     border-radius: 5px;
     text-align: center;
     display: flex;
@@ -333,11 +544,16 @@ li{
     overflow: hidden;
 }
 
-.btn-container{
-    z-index: 100;
+/* .btn-container{
+    z-index: 0;
     position: fixed;
     bottom: 10px;
     left: 30px;
+} */
+
+.ShareButton{
+    width: 70%;
+    min-width: 225px;
 }
 
 
@@ -387,4 +603,227 @@ li{
     display: inline-block; /* Or 'block' if you want the arrows to appear below the image */
     vertical-align: middle; /* Aligns the arrow vertically center if inline-block */
     /* Additional styling as needed */
+}
+
+.option{
+    position: relative;
+    width: 100%;
+    margin-block: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.option p{
+    text-align: left;
+    margin-top: 0px;
+}
+
+.optionDescription{
+    font-size: small;
+    color: rgba(255, 255, 255, 0.815);
+    position: absolute;
+    bottom: -10px;
+}
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(23px);
+    -ms-transform: translateX(23px);
+    transform: translateX(23px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+.xLink{
+    opacity: 85%;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    bottom: 10px;
+    right: 20px;
+    font-size: large;
+    color: rgba(255, 255, 255);
+
+}
+.xLink:hover{
+    opacity: 1;
+}
+.xLink p{
+    margin: 0px;
+}
+.xLogo{
+    height: 30px;
+    width: 30px;
+    filter: invert();
+}
+
+  @media (max-width: 768px) {
+    .grid-header{
+        font-size: large;
+    }
+    .grid-cell {
+        padding: 2px;
+        font-size: large;
+    }
+    .album{
+        width: 50px;
+    }
+    .contentContainer{
+        padding-inline: 10px;
+    }
+}
+
+/* Media query for very small screens */
+@media (max-width: 480px) {
+    .contentContainer{
+        padding-inline: 10px;
+    }
+    .grid-header{
+        font-size: small;
+    }
+    .grid-cell {
+        padding: 2px;
+        font-size: small;
+    }
+
+    .xLink p{
+        display: none;
+    }
+    
+}
+
+@media (max-width: 470px) {
+    .optionDescription{
+        bottom: -25px;
+    }
+}
+
+@media (max-width: 373px) {
+    .smallLinks{
+        padding-top: 20px;
+    }
+}
+
+
+.cookie-consent-banner, .cookie-settings-modal {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    transition: transform 0.5s ease;
+}
+
+.cookie-consent-banner {
+    transform: translateY(100%);
+    animation: slideInCookies 0.5s forwards;
+}
+
+@keyframes slideInCookies {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+.cookie-settings-modal {
+    display: none;
+    margin-right: 20px
+}
+
+.cookie-consent-banner{
+    display: none;
+    margin-right: 20px
+}
+
+/* Additional styling for buttons, etc. */
+.cookieButtons button {
+    margin: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: fit-content;
+    padding-inline: 10px;
+}
+
+#acceptAllCookies, #acceptAllCookieSettings{
+    background-color: #2f92c4;
+    color: white;
+}
+
+#cookieSettings, #saveCookieSettings{
+    color: rgb(117, 116, 116);
+}
+
+.cookieButtons{
+    display: flex;
+}
+
+.cookieDescription{
+    display: flex;
+    align-items: center;
+}
+
+.cookieDescription p{
+    margin-left: 10px;
+}
+
+.fake-css-to-make-gh-pages-reload{
+    background-color: white;
+    color: red;
+    grid-row: 8;
 }
